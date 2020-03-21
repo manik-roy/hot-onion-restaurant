@@ -2,6 +2,9 @@
 	max-width: 100%;
 	transition: all 0.3s ease-out 0s;
 }
+p {
+  font-size: 14px;
+}
 div img {
 	width: 100%;
 }
@@ -15,4 +18,37 @@ input:focus {
 	border-radius: 30px;
 	padding: 0px 25px;
 	font-size: 18px;
+}
+.single-item {
+  transition: .5s;
+  cursor: pointer;
+}
+
+.single-item:hover {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+.card {
+  border: none;
+}
+
+.card-body {
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.checkout-btn {
+  background-color: #80808066;
+  color: #fff;
+  padding: 6px 50px;
+  border-radius: 5px;
+}
+.active {
+  border-bottom: 2px solid #e51a4b;
+  color: #e51a4b;
+}
+.btn:focus {
+  outline: none !important;
+  box-shadow: none;
 }

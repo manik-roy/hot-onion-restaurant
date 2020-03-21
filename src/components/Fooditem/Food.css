@@ -1,0 +1,26 @@
+/* .single-item {
+  transition: .5s;
+  cursor: pointer;
+}
+
+.single-item:hover {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+.card {
+  border: none;
+}
+
+.card-body {
+  padding-bottom: 0;
+}
+
+.checkout-btn {
+  background-color: #80808066;
+  color: #fff;
+  padding: 6px 50px;
+  border-radius: 5px;
+} */
+.catagories  ul li {
+  list-style: none;
+}
