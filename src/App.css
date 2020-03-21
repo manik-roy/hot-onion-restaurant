@@ -52,3 +52,21 @@ input:focus {
   outline: none !important;
   box-shadow: none;
 }
+
+/* why choose us aria section start */
+.choose-aria-content {
+	justify-content: space-evenly;
+	padding: 0;
+	margin-top: 25px;
+}
+.choose-aria-icon {
+	width: 30%;
+	margin: 0 10px;
+}
+.choose-aria-content div h5.card-title {
+	text-transform: capitalize;
+}
+.choose-aria-content p {
+	font-size: 12px;
+}
+/* why choose us aria section end */

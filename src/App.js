@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Banner from './components/Banner/Banner';
-import Food from './components/Fooditem/Food';
+import Food from './components/Food/Food';
+import ChooseUs from './components/ChooseUs/ChooseUs';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
     <Header/>
     <Banner/>
     <Food/>
+    <ChooseUs/>
    </>
   );
 }
