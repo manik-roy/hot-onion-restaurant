@@ -3,19 +3,19 @@ import './Footer.css'
 const Footer = () => {
   return (
     <footer>
-      <div class="container">
-        <div class="row d-flex align-items-center justify-content-between">
-          <div class="col-6">
-            <div class="copyright">
-              <p class="pt-3">Copyright &copy; online food </p>
+      <div className="container">
+        <div className="row d-flex align-items-center justify-content-between">
+          <div className="col-6">
+            <div className="copyright">
+              <p className="pt-3">Copyright &copy; online food </p>
             </div>
           </div>
-          <div class="col-6">
-            <div class="footer-menu">
-              <ul class="d-flex">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of use</a></li>
-                <li><a href="#">Pricing</a></li>
+          <div className="col-6">
+            <div className="footer-menu">
+              <ul className="d-flex">
+                <li><a href="/">Privacy Policy</a></li>
+                <li><a href="/">Terms of use</a></li>
+                <li><a href="/">Pricing</a></li>
               </ul>
             </div>
           </div>

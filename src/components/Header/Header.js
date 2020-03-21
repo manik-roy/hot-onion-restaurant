@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css'
+import {Link} from 'react-router-dom'
 const Header = () => {
   return (
     <header>
@@ -7,7 +8,7 @@ const Header = () => {
             <div className="row d-flex align-items-center justify-content-between">
                 <div className="col">
                     <div className="logo-aria">
-                        <img src="https://i.ibb.co/Snjf3fp/logo2.png" alt="hot onion"/>
+                        <Link to="/"><img src="https://i.ibb.co/Snjf3fp/logo2.png" alt="hot onion"/></Link>
                     </div>
                 </div>
                 <div className="col">
