@@ -2,6 +2,9 @@
 	max-width: 100%;
 	transition: all 0.3s ease-out 0s;
 }
+ul li {
+  list-style: none;
+}
 p {
   font-size: 14px;
 }

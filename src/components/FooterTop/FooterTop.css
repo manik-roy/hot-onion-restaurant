@@ -1,0 +1,14 @@
+.footer-top-area {
+	background: #000;
+}
+.img-area {
+	width: 35%;
+}
+.footer-top-menu-aria {
+	justify-content: space-between;
+}
+.footer-top-menu-aria div ul li a{
+	font-size: 14px;
+	color: #fff;
+	line-height: 18px;
+}
