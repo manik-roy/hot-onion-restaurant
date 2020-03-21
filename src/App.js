@@ -5,6 +5,7 @@ import Banner from './components/Banner/Banner';
 import Food from './components/Food/Food';
 import ChooseUs from './components/ChooseUs/ChooseUs';
 import FooterTop from './components/FooterTop/FooterTop';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
     <Food/>
     <ChooseUs/>
     <FooterTop/>
+    <Footer/>
    </>
   );
 }
