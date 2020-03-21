@@ -1,0 +1,15 @@
+.footer-menu ul {
+	float: right;
+}
+.footer-menu ul li a {
+	margin: 25px;
+	color: #fff;
+}
+footer {
+	background: #000;
+	
+}
+footer p{
+	color: #b6b4b4;
+	
+}
