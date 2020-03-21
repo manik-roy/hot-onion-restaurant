@@ -1,0 +1,10 @@
+.logo-aria {
+	width: 35%;
+	margin: 15px;
+}
+.header-right div.d-flex {
+	flex-flow: row-reverse;
+}
+.header-right div.d-flex button {
+	margin: 15px;
+}
