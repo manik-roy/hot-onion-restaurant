@@ -16,11 +16,11 @@ input:focus {
 	border:none;
 }
 .primary-btn {
-	background: #e51a4b;
-	color: #fff;
-	border-radius: 30px;
-	padding: 0px 25px;
-	font-size: 18px;
+  background: #e51a4b;
+  color: #fff;
+  border-radius: 30px;
+  padding: 7px 25px;
+  font-size: 18px;
 }
 .single-item {
   transition: .5s;

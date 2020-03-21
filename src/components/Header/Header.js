@@ -14,9 +14,9 @@ const Header = () => {
                 <div className="col">
                     <div className="header-right">
                         <div className="d-flex">
-                            <button className="btn primary-btn">Sign up</button>
-                            <button className="btn">Login</button>
-                            <button className="btn"> <i className="fa fa-cart-plus" aria-hidden="true"></i></button>
+                            <Link to="/signup"><button className="btn primary-btn">Sign up</button></Link>
+                            <Link to="/login"><button className="btn">Login</button></Link>
+                            <Link to="/cart"><button className="btn"> <i className="fa fa-cart-plus" aria-hidden="true"></i></button></Link>
                         </div>
                     </div>
                 </div>

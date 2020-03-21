@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css'
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer>
@@ -13,9 +14,9 @@ const Footer = () => {
           <div className="col-6">
             <div className="footer-menu">
               <ul className="d-flex">
-                <li><a href="/">Privacy Policy</a></li>
-                <li><a href="/">Terms of use</a></li>
-                <li><a href="/">Pricing</a></li>
+                <li><Link to="/">Privacy Policy</Link></li>
+                <li><Link to="/">Terms of use</Link></li>
+                <li><Link to="/">Pricing</Link></li>
               </ul>
             </div>
           </div>

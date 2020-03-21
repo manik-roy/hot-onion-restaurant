@@ -1,6 +1,7 @@
 import React from 'react';
 import './login.css'
 import InputItem from '../InputItem/InputItem';
+import { Link } from 'react-router-dom';
 const Login = () => {
   return (
     <section className="login">
@@ -15,7 +16,7 @@ const Login = () => {
             <InputItem name="password" type="password" placeholder="Password" />
             <button type="submit" className="btn login-btn w-100">Log In</button>
           </form>
-          <p className="text-center py-2 no-account">Don't have an account?<a href="/signup"> Sign up</a></p>
+          <p className="text-center py-2 no-account">Don't have an account?<Link to="/signup"> Sign up</Link></p>
         </div>
       </div>
     </div>

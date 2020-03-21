@@ -1,5 +1,6 @@
 import React from 'react';
 import './FooterTop.css'
+import { Link } from 'react-router-dom';
 const FooterTop = () => {
   return (
     <section className="footer-top-area py-5">
@@ -13,18 +14,18 @@ const FooterTop = () => {
           <div className="col-xl-6 d-flex footer-top-menu-aria">
             <div>
               <ul>
-                <li><a href="/">About Online food</a></li>
-                <li><a href="/">Read Our Blog</a></li>
-                <li><a href="/">Sign up to deliver</a></li>
-                <li><a href="/">Add your restaurant</a></li>
+                <li><Link to="/">About Online food</Link></li>
+                <li><Link to="/">Read Our Blog</Link></li>
+                <li><Link to="/">Sign up to deliver</Link></li>
+                <li><Link to="/">Add your restaurant</Link></li>
               </ul>
             </div>
             <div>
               <ul>
-                <li><a href="/">Get help</a></li>
-                <li><a href="/">Red FAQs</a></li>
-                <li><a href="/">View all cities</a></li>
-                <li><a href="/">Restaurant near me</a></li>
+                <li><Link to="/">Get help</Link></li>
+                <li><Link to="/">Red FAQs</Link></li>
+                <li><Link to="/">View all cities</Link></li>
+                <li><Link to="/">Restaurant near me</Link></li>
               </ul>
             </div>
           </div>
