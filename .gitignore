@@ -7,9 +7,7 @@
 
 # testing
 /coverage
-/src/components/cart
 /build
-/src/components/firebaseapp.config.js
 # misc
 .DS_Store
 .env.local
@@ -20,3 +18,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+src/components/firebase.config.js
+firebase.json
+.firebaserc

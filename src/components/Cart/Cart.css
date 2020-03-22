@@ -1,0 +1,13 @@
+.final-order-aria {
+  padding: 31px 15px 28px 25px;
+}
+.order-item-aria.my-3 {
+  background: #e8e8e8;
+  padding: 5px;
+  border-radius: 15px;
+}
+.orders-items-aria {
+  max-height: 345px;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: scroll; /* Add vertical scrollbar */
+}
