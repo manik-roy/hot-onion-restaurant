@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './FoodDetails.css'
 import { useParams } from 'react-router-dom';
 import foods from '../../fakeData/data';
+import { UserContext } from '../auth/useAuth';
 
 const FoodDetails = (props) => {
-  
-  const id = useParams()
+  const {addToCart } = useContext(UserContext)
+  const pdId = useParams()
   const [quantity, setQuantity] = useState(1)
   const [product, setProduct] = useState({})
 
   useEffect(()=>{
-    const data = foods.filter(item => item.id === parseInt(id.id))
+    const data = foods.filter(item => item.id === parseInt(pdId.id))
     setProduct(data[0])
-  },[id])
+  },[pdId])
 
   // onchange handler
   const onchangeHandler = e => {
     if(!isNaN(e.target.value)) {
       setQuantity(e.target.value)
     }
+  }
+
+  const cartHandler = item => {
+    // console.log(id);
+    
+    addToCart({...item, quantity})
+    props.history.push('/cart')
   }
 
   const {title, price, description, img} = product;
@@ -49,7 +57,7 @@ const FoodDetails = (props) => {
                   id="add-product"><i className="fas fa-plus"></i></button>
               </div>
             </div>
-            <button className="btn primary-btn btn-cart" onClick={()=>props.history.push('/cart')}>
+            <button className="btn primary-btn btn-cart" onClick={()=>cartHandler(product)}>
               <span>
                 <i className="fa fa-cart-arrow-down" aria-hidden="true"></i>
               </span> Add</button>

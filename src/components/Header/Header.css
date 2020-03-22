@@ -8,3 +8,6 @@
 .header-right div.d-flex button {
 	margin: 15px;
 }
+.signup-btn:hover {
+	color: #fff;
+}

@@ -47,6 +47,7 @@ const createUserProfile = (authUser, name) => {
 
 const UserProvider = (props) => {
   const [user, setUser] = useState(null)
+  const [cart, setCart] = useState([])
   // sign up user
   const login = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
@@ -93,10 +94,10 @@ const UserProvider = (props) => {
 
 
   // logout user
-  const logout = (props) => {
+  const logout = () => {
     firebase.auth().signOut().then(function () {
       setUser(null)
-      console.log(props);
+      
 
     }).catch(function (error) {
       console.log(error);
@@ -104,8 +105,25 @@ const UserProvider = (props) => {
   }
 
   const addToCart = item => {
-
+    let isExist = cart.find(e => e.id  === item.id)
+   if(!isExist) {
+      let updateCart = [...cart, item]
+      setCart(updateCart)
+   } else {
+     isExist.quantity = isExist.quantity + item.quantity
+     let index = cart.indexOf(isExist.id)
+     cart[index] = isExist
+     let updateCart = [...cart]
+      setCart(updateCart)    
+   }
+   
   }
+
+  const checkOutOrder = () => {
+    setCart([])
+  }
+
+
   return (
     <Provider value={
       {
@@ -113,7 +131,9 @@ const UserProvider = (props) => {
         registerUserWithEmailPassword,
         login,
         logout,
+        cart,
         addToCart,
+        checkOutOrder
       }
     }>
       {props.children}

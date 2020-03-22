@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import foods from '../../fakeData/data';
 import './Food.css'
 import FoodItem from './FoodItem';
-const Food = () => {
+import { UserContext} from '../auth/useAuth'
+import { withRouter } from 'react-router-dom';
+
+const Food = (props) => {
+    
+    const {cart} = useContext(UserContext)
+    const [disabled, setDisabled] = useState(true)
+    useEffect(()=> {
+                if(cart.length >0) {
+                    setDisabled(false)
+                }
+    },[cart])
+
 
     const [activeCatagories, setActiveCatagories] = useState(
         {
@@ -69,7 +81,10 @@ const Food = () => {
                     {items.map(item => <FoodItem key={item.id} item={item} />)}
                     <div className="w-100"></div>
                     <div className="checkout-btn-aria m-auto">
-                        <button className="btn checkout-btn  my-4 text-center text-capitalize">Checkout your food</button>
+                        <button 
+                            onClick={()=>props.history.push('/cart')}
+                            className={disabled ? 'btn disabled my-4 text-center text-capitalize' :'btn checkout-btn  my-4 text-center text-capitalize' } 
+                         disabled={disabled} >Checkout your food</button>
                     </div>
                 </div>
             </div>
@@ -77,4 +92,4 @@ const Food = () => {
     );
 };
 
-export default Food;
+export default withRouter(Food);

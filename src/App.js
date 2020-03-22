@@ -10,6 +10,8 @@ import NotFoundPage from './components/Page/NotFoundPage';
 import FoodDetails from './components/Food/FoodDetails';
 import { UserProvider } from './components/auth/useAuth';
 import UserProfile from './components/Page/UserProfile';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Checkout from './components/Cart/Checkout';
 
 function App() {
   return (
@@ -19,7 +21,12 @@ function App() {
       <Route exact path="/" component={HomePage} />
       <Route path="/signup" component={SignUp} />  
       <Route path="/login" component={Login} />
-      <Route path="/cart" component={Cart} />
+      <PrivateRoute path="/cart">
+            <Cart />
+      </PrivateRoute>
+      <PrivateRoute path="/checkout">
+            <Checkout />
+      </PrivateRoute>
       <Route path="/food/:id" component={FoodDetails} />
       <Route path="/user/profile" component={UserProfile} />
       <Route path="*" component={NotFoundPage} />

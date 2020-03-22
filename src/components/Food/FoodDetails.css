@@ -34,3 +34,6 @@ p.subtitle.muted {
   padding: 7px 40px;
   margin-top: 25px;
 }
+.btn-cart:hover {
+  color: #fff;
+}

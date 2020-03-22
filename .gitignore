@@ -7,9 +7,9 @@
 
 # testing
 /coverage
-./src/components/firebase.config.js
+/src/components/cart
 /build
-
+/src/components/firebaseapp.config.js
 # misc
 .DS_Store
 .env.local
