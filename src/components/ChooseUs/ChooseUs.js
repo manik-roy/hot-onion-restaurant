@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { chooseData } from '../../fakeData/data';
+import { chooseData } from '../../fakeData/foodData';
 import ChooseItem from './ChooseItem';
 
 const ChooseUs = () => {

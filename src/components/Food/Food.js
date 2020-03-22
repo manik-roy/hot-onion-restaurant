@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import foods from '../../fakeData/data';
+import foods from '../../fakeData/foodData';
 import './Food.css'
 import FoodItem from './FoodItem';
 import { UserContext} from '../auth/useAuth'

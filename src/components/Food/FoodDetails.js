@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './FoodDetails.css'
 import { useParams } from 'react-router-dom';
-import foods from '../../fakeData/data';
+import foods from '../../fakeData/foodData';
 import { UserContext } from '../auth/useAuth';
 
 const FoodDetails = (props) => {
