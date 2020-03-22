@@ -1,15 +1,13 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import Banner from './components/Banner/Banner';
-import Food from './components/Food/Food';
-import ChooseUs from './components/ChooseUs/ChooseUs';
-import FooterTop from './components/FooterTop/FooterTop';
-import Footer from './components/Footer/Footer';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './components/Page/HomePage';
 import SignUp from '../src/components/auth/SignUp/SignUp'
 import Login from '../src/components/auth/Login/Login'
+import Cart from './components/Cart/Cart';
+import NotFoundPage from './components/Page/NotFoundPage';
+import FoodDetails from './components/Food/FoodDetails';
 function App() {
   return (
    <>
@@ -17,7 +15,10 @@ function App() {
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/signup" component={SignUp} />  
-      <Route path="/login" component={Login} />  
+      <Route path="/login" component={Login} />
+      <Route path="/cart" component={Cart} />
+      <Route path="/food/:id" component={FoodDetails} />
+      <Route path="*" component={NotFoundPage} />
     </Switch>
    </>
   );

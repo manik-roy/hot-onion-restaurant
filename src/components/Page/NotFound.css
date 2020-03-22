@@ -1,0 +1,16 @@
+.not-found-aria{
+  position: absolute;
+    height: 80vh;
+    margin: 0 auto;
+    overflow: hidden;
+    display: block;
+}
+.not-found-content {
+  position: absolute;
+  top: 40%;
+  transform: translate(5%, 0);
+}
+.not-found-content a{
+  color: #E51A4B;
+  font-weight: 700;
+}

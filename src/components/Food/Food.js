@@ -4,8 +4,6 @@ import './Food.css'
 import FoodItem from './FoodItem';
 const Food = () => {
 
-    let selectedItem = 'lunch';
-
     const [activeCatagories, setActiveCatagories] = useState(
         {
             lunchActive: true,
@@ -13,14 +11,15 @@ const Food = () => {
             breakfastActive: false
         }
     )
-
+    // item select category
+    const [selectedItem, setSelectedItem] = useState('lunch')
     //  initials set data 
     const [items, setItems] = useState([])
 
     useEffect(() => {
         const data = foods.filter(item => item.catagories === selectedItem)
         setItems(data)
-    }, [])
+    }, [selectedItem])
 
     // conditionally set data when click catagories
     const selectHandler = item => {
@@ -43,11 +42,7 @@ const Food = () => {
             previousState.dinnerActive = false
             setActiveCatagories(previousState)
         }
-
-        selectedItem = item
-        const data = foods.filter(item => item.catagories === selectedItem)
-        setItems(data)
-
+        setSelectedItem(item)
     }
 
     const { lunchActive, dinnerActive, breakfastActive } = activeCatagories;

@@ -1,0 +1,32 @@
+.input-cart-item {
+  width: 35%;
+  border: 1px solid gray;
+  padding: 0 25px;
+  border-radius: 30px;
+}
+#food-quantity {
+  border: none;
+  outline: 0;
+  background-color: transparent;
+}
+#food-quantity:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+.fa-plus {
+  color: #E51A4B;
+}
+.food-details {
+  top: 20%;
+  position: absolute;
+  left: 10%;
+}
+p.subtitle.muted {
+  font-size: 18px;
+  line-height: 28px;
+  text-align: justify;
+}
+.food-img {
+  width: 75%;
+}
