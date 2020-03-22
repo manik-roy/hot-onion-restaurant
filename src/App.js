@@ -8,9 +8,11 @@ import Login from '../src/components/auth/Login/Login'
 import Cart from './components/Cart/Cart';
 import NotFoundPage from './components/Page/NotFoundPage';
 import FoodDetails from './components/Food/FoodDetails';
+import { UserProvider } from './components/auth/useAuth';
+
 function App() {
   return (
-   <>
+   <UserProvider>
     <Header/>
     <Switch>
       <Route exact path="/" component={HomePage} />
@@ -20,7 +22,7 @@ function App() {
       <Route path="/food/:id" component={FoodDetails} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
-   </>
+   </UserProvider>
   );
 }
 

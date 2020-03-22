@@ -3,7 +3,8 @@ import './FoodDetails.css'
 import { useParams } from 'react-router-dom';
 import foods from '../../fakeData/data';
 
-const FoodDetails = () => {
+const FoodDetails = (props) => {
+  
   const id = useParams()
   const [quantity, setQuantity] = useState(1)
   const [product, setProduct] = useState({})
@@ -48,7 +49,10 @@ const FoodDetails = () => {
                   id="add-product"><i className="fas fa-plus"></i></button>
               </div>
             </div>
-            <button className="btn primary-btn"><span><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span> Add</button>
+            <button className="btn primary-btn btn-cart" onClick={()=>props.history.push('/cart')}>
+              <span>
+                <i className="fa fa-cart-arrow-down" aria-hidden="true"></i>
+              </span> Add</button>
             </div>
           </div>
           <div className="col-md-6 m-auto d-block">
