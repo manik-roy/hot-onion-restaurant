@@ -8,6 +8,7 @@ const Login = (props) => {
   const auth = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState({})
 
   // input field handler
   const onchangeHandler = e => {
@@ -31,11 +32,17 @@ const Login = (props) => {
     auth.login(email, password)
     .then(res => {
       if(res) {
-        props.history.push('/')
+       if(res.user) {
+          props.history.push('/')
+       } else {
+        setError(res)
+       }
+        
+        
       }
     })
-
   }
+ 
 
   return (
     <section className="login">
@@ -50,6 +57,7 @@ const Login = (props) => {
             <InputItem name="password" type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={password} />
             <button type="submit" className="btn login-btn w-100">Log In</button>
           </form>
+            {error.message && <p className="py-2">{error.message}</p>}
           <p className="text-center py-2 no-account">Don't have an account?<Link to="/signup"> Sign up</Link></p>
         </div>
       </div>

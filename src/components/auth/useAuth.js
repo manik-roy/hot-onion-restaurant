@@ -56,8 +56,7 @@ const UserProvider = (props) => {
         return response;
       })
       .catch(err => {
-        console.log(err);
-
+        return err;
       })
   }
 
