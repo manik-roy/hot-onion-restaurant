@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import './login.css'
 import InputItem from '../InputItem/InputItem';
-import { Link } from 'react-router-dom';
-const Login = () => {
+import { Link, withRouter } from 'react-router-dom';
+import { UserContext } from '../useAuth';
+const Login = (props) => {
+
+  const auth = useContext(UserContext)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  // input field handler
+  const onchangeHandler = e => {
+    const {name, value} = e.target;
+     
+    if(name==='email') {
+      setEmail(value)
+    }    
+    if(name==='password') {
+      setPassword(value)
+    }    
+       
+  }
+
+  // form submit handler
+
+  const loginUser = e => {
+    e.preventDefault()
+  console.log(email, password);
+  
+    auth.login(email, password)
+    .then(res => {
+      if(res) {
+        props.history.push('/')
+      }
+    })
+
+  }
+
   return (
     <section className="login">
     <div className="container">
@@ -11,9 +45,9 @@ const Login = () => {
           <div className="login-aria-logo py-5 m-auto">
             <img className="w-50 d-block m-auto" src="https://i.ibb.co/Snjf3fp/logo2.png" alt=""/>
           </div>
-          <form>
-            <InputItem name="email" type="email" placeholder="Email" />
-            <InputItem name="password" type="password" placeholder="Password" />
+          <form onSubmit={loginUser}>
+            <InputItem name="email" type="email" onchangeHandler={onchangeHandler} placeholder="Email" value={email} />
+            <InputItem name="password" type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={password} />
             <button type="submit" className="btn login-btn w-100">Log In</button>
           </form>
           <p className="text-center py-2 no-account">Don't have an account?<Link to="/signup"> Sign up</Link></p>
@@ -24,4 +58,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

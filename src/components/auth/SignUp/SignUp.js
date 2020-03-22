@@ -6,11 +6,9 @@ import { UserContext } from '../useAuth';
 
 
 
-const SignUp = () => {
+const SignUp = (props) => {
+ 
   const auth = useContext(UserContext)
-console.log(auth);
-
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -38,7 +36,12 @@ console.log(auth);
   const registerUser = e => {
     e.preventDefault()
     auth.registerUserWithEmailPassword(email, password, name)
-    
+    .then(res => {
+      if(res) {
+        props.history.push('/')
+      }
+    })
+
   }
 
   

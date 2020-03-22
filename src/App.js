@@ -9,6 +9,7 @@ import Cart from './components/Cart/Cart';
 import NotFoundPage from './components/Page/NotFoundPage';
 import FoodDetails from './components/Food/FoodDetails';
 import { UserProvider } from './components/auth/useAuth';
+import UserProfile from './components/Page/UserProfile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/login" component={Login} />
       <Route path="/cart" component={Cart} />
       <Route path="/food/:id" component={FoodDetails} />
+      <Route path="/user/profile" component={UserProfile} />
       <Route path="*" component={NotFoundPage} />
     </Switch>
    </UserProvider>
