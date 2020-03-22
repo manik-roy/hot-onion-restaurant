@@ -72,8 +72,8 @@ const UserProvider = (props) => {
 
         return response;
       })
-      .catch(err => {
-        alert('Something went wrong please try again')
+      .catch(err => { 
+        alert(err.message)
       })
   }
 

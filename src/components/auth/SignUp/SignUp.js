@@ -35,12 +35,19 @@ const SignUp = (props) => {
 
   const registerUser = e => {
     e.preventDefault()
-    auth.registerUserWithEmailPassword(email, password, name)
-    .then(res => {
-      if(res) {
-        props.history.push('/')
-      }
-    })
+
+    if(password === confirmPassword) {
+      auth.registerUserWithEmailPassword(email, password, name)
+      .then(res => {
+        if(res) {
+          props.history.push('/')
+        }
+      })
+    } else {
+      alert('Password should be match')
+    }
+
+
 
   }
 
