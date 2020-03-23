@@ -12,6 +12,7 @@ import { UserProvider } from './components/auth/useAuth';
 import UserProfile from './components/Page/UserProfile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Checkout from './components/Cart/Checkout';
+import Foods from './components/Page/Foods';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
       <PrivateRoute path="/checkout">
             <Checkout />
       </PrivateRoute>
-      <Route path="/food/:id" component={FoodDetails} />
+      <Route exact path="/foods/" component={Foods} />
+      <Route path="/foods/:id" component={FoodDetails} />
       <PrivateRoute path="/user/profile">
             <UserProfile />
       </PrivateRoute>

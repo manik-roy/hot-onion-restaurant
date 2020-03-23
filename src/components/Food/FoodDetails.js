@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './FoodDetails.css'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import foods from '../../fakeData/foodData';
 import { UserContext } from '../auth/useAuth';
 
@@ -8,7 +8,7 @@ const FoodDetails = (props) => {
   const {addToCart } = useContext(UserContext)
   const pdId = useParams()
   const [quantity, setQuantity] = useState(1)
-  const [product, setProduct] = useState({})
+  const [product, setProduct] = useState(null)
 
   useEffect(()=>{
     const data = foods.filter(item => item.id === parseInt(pdId.id))
@@ -22,6 +22,8 @@ const FoodDetails = (props) => {
     }
   }
 
+  console.log(product);
+  
   const cartHandler = item => {
     // console.log(id);
     
@@ -29,18 +31,21 @@ const FoodDetails = (props) => {
     props.history.push('/cart')
   }
 
-  const {title, price, description, img} = product;
+  
   // console.log(product.title);  
+
   return (
+    <>
+    {product ? (
     <section className="food-details pt-5">
       <div className="container">
         <div className="row">
           <div className="col-md-6 py-5">
             <div className="food-details-content">
-              <h3>{title}</h3>
-              <p className="subtitle muted pt-3">{description}</p>
+              <h3>{product && product.title}</h3>
+              <p className="subtitle muted pt-3">{product && product.description}</p>
             <div className="cart-item d-flex align-items-center p-3">
-              <h3>${price}</h3>
+              <h3>${product && product.price}</h3>
               <div className="input-group input-cart-item ml-4">
                 <button 
                   className="btn btn-default" 
@@ -64,11 +69,26 @@ const FoodDetails = (props) => {
             </div>
           </div>
           <div className="col-md-6 m-auto d-block">
-            <img src={img} className="food-img m-auto d-block" alt=""/>
+            <img src={product && product.img} className="food-img m-auto d-block" alt=""/>
           </div>
         </div>
       </div>
     </section>
+  )
+    : (
+      <div className="container  not-found-aria">
+        <div className="row ">
+          <div className="col not-found-content text-center">
+            <h1>Invalid Product data</h1>
+            <h3>Something went wrong</h3>
+            <p>We're deeply sorry, there are no product about this data</p>
+            <Link to="/foods">See our foods.</Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+    </>
   );
 };
 

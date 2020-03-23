@@ -75,6 +75,10 @@ const Food = (props) => {
                                 onClick={() => selectHandler('dinner')}
                             >Dinner</button></li>
                         </ul>
+                       
+                    </div>
+                    <div className="f-right d-flex align-items-center text-danger">
+                    <p className="see-all" onClick={()=> props.history.push('/foods')} >See All</p>
                     </div>
                 </div>
                 <div className="row food-items">

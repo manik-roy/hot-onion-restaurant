@@ -9,3 +9,12 @@
 .has-account a {
 	color: #F91944;
 }
+#sign-up-aria-bg {
+	background: url('https://i.ibb.co/5Ym9NFj/signup-bg.png');
+	background-repeat: no-repeat;
+	width: 100%;
+  height: 550px;
+  background-position: center center;
+	background-size: cover;
+	margin-top: 5%;
+}

@@ -95,3 +95,10 @@ input:focus {
   border-bottom: 1px solid gray;
   margin-bottom: 25px;
 }
+p.see-all {
+  cursor: pointer;
+  transition: .3s;
+}
+p.see-all:hover {
+  border-bottom: 1px solid salmon;
+}

@@ -3,7 +3,7 @@ import { UserContext } from '../auth/useAuth';
 import InputItem from '../auth/InputItem/InputItem'
 import './Cart.css'
 import CartItem from './CartItem';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const Cart = (props) => {
   const { cart, checkOutOrder } = useContext(UserContext)
@@ -54,8 +54,9 @@ const Cart = (props) => {
   
 if(cart.length === 0) {
   return (
-    <div className="container pt-5 mt-5">
+    <div className="container pt-5 mt-5 text-center">
       <h1 className="text-center">You have no item</h1>
+        <Link to="/foods" className="text-danger">See our foods.</Link>
     </div>
   )
 }

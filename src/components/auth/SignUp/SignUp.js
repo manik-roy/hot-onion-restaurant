@@ -57,7 +57,7 @@ const SignUp = (props) => {
 
 
   return (
-    <section className="sign-up">
+    <section className="sign-up" id="sign-up-aria-bg">
     <div className="container">
       <div className="row">
         <div className="col-md-4 col-md-offset-3 m-auto">
