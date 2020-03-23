@@ -103,13 +103,17 @@ const UserProvider = (props) => {
     })
   }
 
+
+  // add product to cart
   const addToCart = item => {
     let isExist = cart.find(e => e.id  === item.id)
    if(!isExist) {
+     item.proTotalPrice = item.quantity * item.price
       let updateCart = [...cart, item]
       setCart(updateCart)
    } else {
      isExist.quantity = isExist.quantity + item.quantity
+     isExist.proTotalPrice = isExist.price * item.quantity
      let index = cart.indexOf(isExist.id)
      cart[index] = isExist
      let updateCart = [...cart]
@@ -118,6 +122,26 @@ const UserProvider = (props) => {
    
   }
 
+
+  // product quantity add remove
+
+  const calculateQuantity = (item, event) => {
+    let product = cart.find(e => e.id === item.id)
+    product.quantity = product.quantity + event;
+    product.proTotalPrice = product.price * product.quantity;
+    if(product.quantity === 0) {
+      let updateProduct = cart.filter(e => e.id !== product.id)
+      setCart(updateProduct)
+    } else {
+      let index = cart.indexOf(product.id);
+      cart[index] = product
+      let updateProduct = [...cart]
+      setCart(updateProduct)
+    }
+    
+  }
+
+  // place order and remove cart item
   const checkOutOrder = () => {
     setCart([])
   }
@@ -132,7 +156,8 @@ const UserProvider = (props) => {
         logout,
         cart,
         addToCart,
-        checkOutOrder
+        checkOutOrder,
+        calculateQuantity
       }
     }>
       {props.children}

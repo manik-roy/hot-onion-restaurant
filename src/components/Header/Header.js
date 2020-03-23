@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Header.css'
 import { Link, withRouter } from 'react-router-dom'
 import { UserContext } from '../auth/useAuth';
@@ -28,6 +28,16 @@ const LogoutUser = () => {
 
 const Header = (props) => {
     const {user, cart} = useContext(UserContext)
+    const [cartItem, setCartItem] = useState('')
+    useEffect(()=>{
+        if(cart.length > 0 ) {
+            setCartItem(cart.length)
+        } else {
+            setCartItem('')
+        }
+
+        
+    }, [cart])
 
     return (
         <header>
@@ -45,7 +55,7 @@ const Header = (props) => {
                             <Link to="/cart">
                                 <button className="btn"> 
                                         <i className="fa fa-cart-plus" aria-hidden="true">
-                                            </i> <span style={{color:'red'}}> {cart && cart.length}</span>
+                                            </i> <span style={{color:'red'}}> {cart && cartItem}</span>
                                     </button></Link>
                             </div>
                         </div>

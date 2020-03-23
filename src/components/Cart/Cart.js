@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../auth/useAuth';
 import InputItem from '../auth/InputItem/InputItem'
 import './Cart.css'
@@ -13,8 +13,16 @@ const Cart = (props) => {
   const [flatNo, setFlatNo] = useState('')
   const [name, setName] = useState('')
   const [instruction, setInstruction] = useState('')
+  const [deliveryFee] = useState(2)
+  const [tax] = useState(5)
+  const [subTotal, setSubTotal] = useState(5)
+  
+  useEffect(()=> {
+      let totalPrice = cart.reduce( (total, item) => total + item.proTotalPrice , 0 )
+    setSubTotal(totalPrice)
+  },[cart])
 
-  console.log(cart);
+  
 
   // input field handler
   const onchangeHandler = e => {
@@ -97,12 +105,14 @@ const handleCheckout = () => {
                   <div className="col-md-8">
                     <h5>Subtotal: </h5>
                     <h5>Tax:</h5>
+                    <h5>Deliver fee:</h5>
                     <h5>Total:</h5>
                   </div>
                   <div className="col-md-4 status">
-                    <h5>$ <span id="sub-total-price">1278</span> </h5>
-                    <h5>$0</h5>
-                    <h5>$ <span id="total-price">1278</span> </h5>
+                    <h5>$ <span id="sub-total-price">{subTotal.toFixed(2)}</span> </h5>
+                    <h5>$ <span> {tax}.00</span> </h5>
+                    <h5>$ <span>{deliveryFee}.00</span> </h5>
+                    <h5>$ <span id="total-price">{(subTotal+tax+deliveryFee).toFixed(2)}</span> </h5>
                   </div>
                 </div>
                 <button type="submit" className="btn sign-up-btn w-100" onClick={handleCheckout} >Place Order</button>

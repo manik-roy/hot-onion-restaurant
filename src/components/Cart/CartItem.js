@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './CartItem.css'
+import { UserContext } from '../auth/useAuth';
 
 const CartItem = ({item, onchangeHandler}) => {
-  const {img, title, price, quantity} =item;
+
+  const {addToCart, calculateQuantity} = useContext(UserContext)
+
+  const {img, title, proTotalPrice, quantity} =item;
   const sortTitle = title.slice(0,5)
   return (
     <div className="order-item-aria my-3">
@@ -12,11 +16,12 @@ const CartItem = ({item, onchangeHandler}) => {
       </div>
       <div className="price-aria text-center w-25">
         <h6>{sortTitle}</h6>
-        <h6>{price}</h6>
+        <h6>{proTotalPrice.toFixed(2)}</h6>
       </div>
       <div className="quantity-aria w-50">
         <div className="input-group">
           <button
+           onClick={() => calculateQuantity(item, -1)}
             className="btn btn-default"
             ><i className="fas fa-minus"></i></button>
           <h6 
@@ -24,6 +29,7 @@ const CartItem = ({item, onchangeHandler}) => {
             className="text-center"
           > {quantity} </h6>
           <button
+          onClick={() => calculateQuantity(item, 1)}
             className="btn btn-default"
             ><i className="fas fa-plus"></i></button>
         </div>
