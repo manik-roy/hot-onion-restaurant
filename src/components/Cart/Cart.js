@@ -22,7 +22,14 @@ const Cart = (props) => {
     setSubTotal(totalPrice)
   },[cart])
 
-  
+  const [disabled, setDisabled] = useState(false)
+  useEffect(()=> {
+              if(name && homeNo && flatNo && instruction && address) {
+                  setDisabled(false)
+              } else {
+                setDisabled(true)
+              }
+  },[address,homeNo,flatNo,name,instruction])
 
   // input field handler
   const onchangeHandler = e => {
@@ -58,6 +65,9 @@ const handleCheckout = () => {
   checkOutOrder()
   props.history.push('/checkout')
 }
+const hanleSubmit = e => {
+  e.preventDefault()
+}
 
   return (
     <div className="container pt-5 mt-5">
@@ -67,7 +77,7 @@ const handleCheckout = () => {
             <h3>Edit Delivery Details </h3>
           </div>
 
-          <form>
+          <form onSubmit={hanleSubmit}>
             <InputItem name="address"
               type="text" placeholder="Deliver to door"
               onchangeHandler={onchangeHandler} value={address} />
@@ -115,7 +125,12 @@ const handleCheckout = () => {
                     <h5>$ <span id="total-price">{(subTotal+tax+deliveryFee).toFixed(2)}</span> </h5>
                   </div>
                 </div>
-                <button type="submit" className="btn sign-up-btn w-100" onClick={handleCheckout} >Place Order</button>
+                <button 
+                  type="submit" 
+                  disabled={disabled} 
+                  className={disabled ? 'btn place-order-btn-disable': 'btn sign-up-btn w-100'} 
+                  // className="btn sign-up-btn w-100" 
+                  onClick={handleCheckout} >Place Order</button>
               </div>
             </div>
           </div>

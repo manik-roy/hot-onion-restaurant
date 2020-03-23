@@ -11,3 +11,9 @@
   overflow-x: hidden; /* Hide horizontal scrollbar */
   overflow-y: scroll; /* Add vertical scrollbar */
 }
+.place-order-btn-disable {
+  background: gray;
+  cursor: not-allowed;
+  width: 100%;
+  padding: 10px 0;
+}

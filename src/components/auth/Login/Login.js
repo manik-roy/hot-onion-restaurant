@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './login.css'
 import InputItem from '../InputItem/InputItem';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
 const Login = (props) => {
 
@@ -43,6 +43,9 @@ const Login = (props) => {
     })
   }
  
+  if(auth.user) {
+    return Redirect('/')
+  } else {
 
   return (
     <section className="login">
@@ -64,6 +67,7 @@ const Login = (props) => {
     </div>
   </section>
   );
+  }
 };
 
 export default withRouter(Login);

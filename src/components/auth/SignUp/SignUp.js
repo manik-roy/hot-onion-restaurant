@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import InputItem from '../InputItem/InputItem';
 import './SignUp.css'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
 
 
@@ -51,7 +51,9 @@ const SignUp = (props) => {
 
   }
 
-  
+  if(auth.user) {
+    return Redirect('/')
+  } else {
 
 
   return (
@@ -75,6 +77,7 @@ const SignUp = (props) => {
     </div>
   </section>
   );
+  }
 };
 
 export default SignUp;
