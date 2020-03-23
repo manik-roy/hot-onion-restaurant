@@ -4,7 +4,7 @@ import { UserContext } from '../auth/useAuth';
 
 const CartItem = ({item, onchangeHandler}) => {
 
-  const {addToCart, calculateQuantity} = useContext(UserContext)
+  const {calculateQuantity} = useContext(UserContext)
 
   const {img, title, proTotalPrice, quantity} =item;
   const sortTitle = title.slice(0,5)

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useRef } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -13,6 +13,7 @@ const { Provider, Consumer } = Context = createContext()
 // get user profile information
 const firestore = firebase.firestore()
 const getUserProfile = (user) => {
+  
   const userRef = firestore.collection("users").doc(user.uid);
 
   return userRef.get()
@@ -83,13 +84,12 @@ const UserProvider = (props) => {
     firebase.auth().onAuthStateChanged(function (loginUser) {
         if(loginUser) {
           
-            setUser({email:loginUser.email})
+            setUser({email:loginUser.email, uid:loginUser.uid})
          
          
         }
     });
   }, [])
-  // get user  time fetch user
 
 
   // logout user
@@ -157,7 +157,8 @@ const UserProvider = (props) => {
         cart,
         addToCart,
         checkOutOrder,
-        calculateQuantity
+        calculateQuantity,
+        getUserProfile
       }
     }>
       {props.children}

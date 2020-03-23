@@ -28,7 +28,9 @@ function App() {
             <Checkout />
       </PrivateRoute>
       <Route path="/food/:id" component={FoodDetails} />
-      <Route path="/user/profile" component={UserProfile} />
+      <PrivateRoute path="/user/profile">
+            <UserProfile />
+      </PrivateRoute>
       <Route path="*" component={NotFoundPage} />
     </Switch>
    </UserProvider>
