@@ -31,7 +31,13 @@ const FoodDetails = (props) => {
     props.history.push('/cart')
   }
 
-  
+  const quantityHandler = quan => {
+    if(quantity < 0 || quantity === 0) {
+      setQuantity(0)
+    } else {
+      setQuantity(quantity-quan)
+    }
+  }
   // console.log(product.title);  
 
   return (
@@ -49,7 +55,7 @@ const FoodDetails = (props) => {
               <div className="input-group input-cart-item ml-4">
                 <button 
                   className="btn btn-default" 
-                  onClick={()=>setQuantity(quantity-1)}
+                  onClick={()=>quantityHandler(1)}
                   id="remove-product"><i className="fas fa-minus"></i></button>
                 <input type="text" 
                   id="food-quantity" 
