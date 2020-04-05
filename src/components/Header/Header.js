@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { UserContext } from '../auth/useAuth';
 
 
-const LoginUser = ({route}) => {
+const LoginUser = ({route, name}) => {
     const {logout} = useContext(UserContext)
     const logOutHandler = () => {
         logout()
@@ -12,7 +12,7 @@ const LoginUser = ({route}) => {
     }
     return (
         <>
-            <Link to="/user/profile"><button className="btn signup-btn primary-btn">Profile</button></Link>
+            <Link to="/user/profile"><button className="btn signup-btn primary-btn">{name ? name : 'Profile'}</button></Link>
             <button className="btn" onClick={logOutHandler}>Logout</button>
         </>
     )
@@ -51,7 +51,7 @@ const Header = (props) => {
                     <div className="col">
                         <div className="header-right">
                             <div className="d-flex">
-                                {user ? <LoginUser route={props} /> : <LogoutUser/> }
+                                {user ? <LoginUser route={props} name={user.displayName} /> : <LogoutUser/> }
                             <Link to="/cart">
                                 <button className="btn"> 
                                         <i className="fa fa-cart-plus" aria-hidden="true">

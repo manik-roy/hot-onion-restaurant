@@ -1,19 +1,49 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './FoodDetails.css'
-import { useParams, Link } from 'react-router-dom';
-import foods from '../../fakeData/foodData';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { UserContext } from '../auth/useAuth';
+import axios from 'axios'
+import Loading from '../utils/Loading';
 
-const FoodDetails = (props) => {
-  const {addToCart } = useContext(UserContext)
+const FoodDetails = (props) => {                   
+  const {addToCart, setUser, user, addCatDatabase } = useContext(UserContext)
   const pdId = useParams()
   const [quantity, setQuantity] = useState(1)
   const [product, setProduct] = useState(null)
-
+  const [isLoading, setIsLoading] = useState(false);
+  // const [userInfo, setUserInfo] = useState(null)
   useEffect(()=>{
-    const data = foods.filter(item => item.id === parseInt(pdId.id))
-    setProduct(data[0])
+    async function getFoods() {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`http://localhost:3000/api/v1/foods/${pdId.id}`);
+        setProduct(response.data.data.food)
+        setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+      }
+    }
+   getFoods() 
+  
   },[pdId])
+  // get user profile
+  useEffect(()=>{
+    async function getUserInfo() {
+      try {
+        console.log('userrrrr**', `http://localhost:3000/api/v1/users/email/${user.email}`);
+
+        // const response = await axios.get(`http://localhost:3000/api/v1/users/email/${user.email}`);
+        // console.log('userrrrr**', response.data.data.user);
+        console.log(user);
+        
+        
+      } catch (error) {
+       
+      }
+    }
+    getUserInfo() 
+  
+  },[])
 
   // onchange handler
   const onchangeHandler = e => {
@@ -22,13 +52,17 @@ const FoodDetails = (props) => {
     }
   }
 
-  console.log(product);
   
   const cartHandler = item => {
-    // console.log(id);
     
+    if(!user) {
+      props.history.push('/login')
+    } else {
+    // console.log(id);
     addToCart({...item, quantity})
+    addCatDatabase(item, quantity, user);
     props.history.push('/cart')
+    }
   }
 
   const quantityHandler = quan => {
@@ -38,7 +72,10 @@ const FoodDetails = (props) => {
       setQuantity(quantity-quan)
     }
   }
-  // console.log(product.title);  
+
+  if(isLoading) {
+    return <Loading/>
+  }
 
   return (
     <>
@@ -99,3 +136,5 @@ const FoodDetails = (props) => {
 };
 
 export default FoodDetails;
+
+

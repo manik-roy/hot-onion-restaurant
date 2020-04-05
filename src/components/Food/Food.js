@@ -1,14 +1,28 @@
 import React, { useState, useEffect, useContext } from 'react';
-import foods from '../../fakeData/foodData';
 import './Food.css'
 import FoodItem from './FoodItem';
 import { UserContext} from '../auth/useAuth'
 import { withRouter } from 'react-router-dom';
-
+import axios from 'axios'
 const Food = (props) => {
-    
     const {cart} = useContext(UserContext)
     const [disabled, setDisabled] = useState(true)
+    const [foods, setFoods] = useState([]);
+    
+    // Fetch foods form server
+    useEffect(()=>{
+        async function getFoods() {
+            try {
+              const response = await axios.get('http://localhost:3000/api/v1/foods');
+              console.log(response.data.data.foods);
+              setFoods(response.data.data.foods)
+            } catch (error) {
+              console.error(error);
+            }
+          }
+         getFoods() 
+    },[])
+
     useEffect(()=> {
                 if(cart.length >0) {
                     setDisabled(false)
@@ -31,7 +45,7 @@ const Food = (props) => {
     useEffect(() => {
         const data = foods.filter(item => item.catagories === selectedItem)
         setItems(data)
-    }, [selectedItem])
+    }, [selectedItem, foods])
 
     // conditionally set data when click catagories
     const selectHandler = item => {
@@ -57,8 +71,8 @@ const Food = (props) => {
         setSelectedItem(item)
     }
 
+ 
     const { lunchActive, dinnerActive, breakfastActive } = activeCatagories;
-
     return (
         <section className="food-catagories-aria">
             <div className="container">
@@ -82,7 +96,7 @@ const Food = (props) => {
                     </div>
                 </div>
                 <div className="row food-items">
-                    {items.map(item => <FoodItem key={item.id} item={item} />)}
+                    {items.map(item => <FoodItem key={item._id} item={item} />)}
                     <div className="w-100"></div>
                     <div className="checkout-btn-aria m-auto">
                         <button 

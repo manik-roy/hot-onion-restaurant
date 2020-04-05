@@ -4,9 +4,10 @@ import InputItem from '../auth/InputItem/InputItem'
 import './Cart.css'
 import CartItem from './CartItem';
 import { withRouter, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Cart = (props) => {
-  const { cart, checkOutOrder } = useContext(UserContext)
+  const { cart, checkOutOrder, user, setCart } = useContext(UserContext)
 
   const [address, setAddress] = useState('')
   const [homeNo, setHomeNo] = useState('')
@@ -17,6 +18,23 @@ const Cart = (props) => {
   const [tax] = useState(5)
   const [subTotal, setSubTotal] = useState(5)
   
+useEffect(() => {
+  async function getCarts() {
+    if (user) {
+      try {
+
+        const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+        console.log('carts item ', response.data.data.cart[0].carts);
+        setCart(response.data.data.cart[0].carts)
+
+      } catch (error) {
+
+      }
+    }
+  }
+  getCarts()
+},[])
+
   useEffect(()=> {
       let totalPrice = cart.reduce( (total, item) => total + item.proTotalPrice , 0 )
     setSubTotal(totalPrice)
@@ -62,9 +80,26 @@ if(cart.length === 0) {
 }
 
 
-const handleCheckout = () => {
+const handleCheckout = async () => {
   checkOutOrder()
-  props.history.push('/checkout')
+  const cartIds = cart.map(i => i._id);
+  console.log(cartIds);
+  
+  const res = await axios.put(`http://localhost:3000/api/v1/carts/deletes/${user._id}`, cartIds)
+  console.log(res);
+  
+  const shippingInfo = {
+    address,
+    homeNo,
+    flatNo,
+    instruction,
+    name,
+    cart,
+    user:user._id,
+    subTotal
+  }
+  axios.post(`http://localhost:3000/api/v1/orders`, shippingInfo)
+  // props.history.push('/checkout')
 }
 const hanleSubmit = e => {
   e.preventDefault()
@@ -107,7 +142,7 @@ const hanleSubmit = e => {
             <h6>Arriving in 20-30 minutes</h6>
             <div className="orders-items-aria">
 
-              {cart.map(item => <CartItem item={item} key={item.id} />)}
+              {cart.map(item => <CartItem item={item} key={item._id} />)}
 
             </div>
             <div className="order-price-aira">

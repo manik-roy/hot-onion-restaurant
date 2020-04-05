@@ -1,0 +1,34 @@
+#main_loading{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:75vh;
+  margin:0;
+}
+.loading {
+ display:flex
+}
+.circle {
+  background-color:#353b48;
+  border-radius:50%;
+  height:15px;
+  width:15px;
+  margin:5px;
+  animation:jump 0.5s ease-in infinite;
+}
+
+.circle:nth-of-type(2){
+  animation-delay:.1s
+}
+.circle:nth-of-type(3) {
+  animation-delay:.2s
+}
+
+@keyframes jump{
+  0% {
+    transform:translateY(0)
+  }
+  50% {
+    transform:translateY(-10px)
+  }
+}

@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import foods from '../../fakeData/foodData';
 import FoodItem from '../Food/FoodItem';
-
+import axios from 'axios'
+import Loading from '../utils/Loading';
 const Foods = () => {
   const [items, setItems] = useState([])
 
-  useEffect(() => {
-      setItems(foods)
-  }, [])
+    const [isLoading, setIsLoading] = React.useState(false);
+    // Fetch foods form server
+    useEffect(()=>{
+      async function getFoods() {
+        setIsLoading(true)
+          try {
+            const response = await axios.get('http://localhost:3000/api/v1/foods');
+            console.log(response.data.data.foods);
+            setItems(response.data.data.foods)
+            setIsLoading(false)
+          } catch (error) {
+            console.error(error);
+            setIsLoading(false)
+          }
+        }
+       getFoods() 
+  },[])
+  if(isLoading) {
+    return <Loading/>
+  }
   return (
     <div className="container">
       <div className="row food-items">
-      {items.map(item => <FoodItem key={item.id} item={item} />)}
+      {items.map(item => <FoodItem key={item._id} item={item} />)}
     </div>
     </div>
   );

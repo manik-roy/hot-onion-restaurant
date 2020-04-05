@@ -3,6 +3,8 @@ import './login.css'
 import InputItem from '../InputItem/InputItem';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
+import axios from 'axios';
+
 const Login = (props) => {
 
   const auth = useContext(UserContext)
@@ -27,12 +29,15 @@ const Login = (props) => {
 
   const loginUser = e => {
     e.preventDefault()
-  console.log(email, password);
-  
     auth.login(email, password)
     .then(res => {
       if(res) {
        if(res.user) {
+        async function getUserProfile(email) {
+          const response = await axios.get(`http://localhost:3000/api/v1/users/email/${email}`);
+          auth.setUser({...response.data.data.user})
+        }
+        getUserProfile(res.user.email)
           props.history.push('/')
        } else {
         setError(res)

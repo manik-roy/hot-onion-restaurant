@@ -3,7 +3,8 @@ import InputItem from '../InputItem/InputItem';
 import './SignUp.css'
 import { Link, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
-
+import axios from 'axios'
+import Loading from '../../utils/Loading';
 
 
 const SignUp = (props) => {
@@ -13,6 +14,7 @@ const SignUp = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // input field handler
   const onchangeHandler = e => {
@@ -33,28 +35,32 @@ const SignUp = (props) => {
 
   // form submit handler
 
-  const registerUser = e => {
+  const registerUser = async  e => {
     e.preventDefault()
 
     if(password === confirmPassword) {
-      auth.registerUserWithEmailPassword(email, password, name)
-      .then(res => {
-        if(res) {
-          props.history.push('/')
-        }
-      })
+      setIsLoading(true)
+      let response = await auth.registerUserWithEmailPassword(email, password, name)
+      if(response) {
+        setIsLoading(false)
+        let newUser = await axios.post('http://localhost:3000/api/v1/users',{email, displayName:name})
+        auth.setUser({...newUser.data.data.user})
+      } else {
+        setIsLoading(false)
+      }
     } else {
-      alert('Password should be match')
+      alert('Password mismatch')
     }
+  }
 
 
-
+  if(isLoading) {
+   return <Loading/>
   }
 
   if(auth.user) {
     return Redirect('/')
   } else {
-
 
   return (
     <section className="sign-up" id="sign-up-aria-bg">
