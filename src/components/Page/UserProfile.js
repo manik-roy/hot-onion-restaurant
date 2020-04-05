@@ -1,40 +1,40 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../auth/useAuth';
 import axios from 'axios';
-import Cart from '../Cart/Cart';
-import CartItem from '../Cart/CartItem';
 import OrderItem from '../Cart/OrderItem';
+import Loading from '../utils/Loading';
 
 const UserProfile = () => {
 
   const { user } = useContext(UserContext)
   const [previousOrder, setPreviousOrder] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOrder, setIsOrder] = useState(false)
   useEffect(() => {
     async function getOrder() {
+      setIsLoading(true)
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/orders/${user._id}`);
+        const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/orders/${user._id}`);
         var orders = response.data.data.order.map(item => {
           return { carts: item.cart, subTotal: item.subTotal, createdAt: item.createdAt };
         })
         setPreviousOrder(orders)
-        console.log(previousOrder);
-
+        if (orders.length > 0) {
+          setIsOrder(true)
+        }
+        setIsLoading(false)
       } catch (error) {
         console.error(error);
+        setIsLoading(false)
       }
     }
     getOrder()
 
   }, [user])
-  if (previousOrder) {
-    console.log(previousOrder);
-  }
 
   return (
     <>
-
-      {loading ? <h1 className="card-text text-center mt-5 pt-5">Loading ......</h1> : (
+      {isLoading ? <Loading /> : (
         <div className="container">
           <div className="card border-primary m-auto d-block">
             <img className="card-img-top w-25 d-block m-auto" src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" alt="" />
@@ -44,14 +44,18 @@ const UserProfile = () => {
             </div>
           </div>
           <div className="row">
-              <div className="col m-4"><h2 className="text-center m-auto">Previous Order</h2></div>
-              <div className="w-100"></div>
-              {previousOrder && previousOrder.map(item => <OrderItem item={item} />)}
+            <div className="col m-4">
+              {isOrder ?
+                <h2 className="text-center m-auto">Previous Order</h2> :
+                <h2>You have no orders</h2>}
+            </div>
+            <div className="w-100"></div>
+            {previousOrder && previousOrder.map(item => <OrderItem item={item} />)}
           </div>
-          </div>
-    )  }
+        </div>
+      )}
     </>
-      );
+  );
 
 };
 

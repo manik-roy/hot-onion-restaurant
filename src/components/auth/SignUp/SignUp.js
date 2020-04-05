@@ -6,7 +6,6 @@ import { UserContext } from '../useAuth';
 import axios from 'axios'
 import Loading from '../../utils/Loading';
 
-
 const SignUp = (props) => {
  
   const auth = useContext(UserContext)
@@ -42,8 +41,9 @@ const SignUp = (props) => {
       setIsLoading(true)
       let response = await auth.registerUserWithEmailPassword(email, password, name)
       if(response) {
+        props.history.push('/')
         setIsLoading(false)
-        let newUser = await axios.post('http://localhost:3000/api/v1/users',{email, displayName:name})
+        let newUser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users',{email, displayName:name})
         auth.setUser({...newUser.data.data.user})
       } else {
         setIsLoading(false)
