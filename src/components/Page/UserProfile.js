@@ -14,7 +14,7 @@ const UserProfile = () => {
     async function getOrder() {
       setIsLoading(true)
       try {
-        const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/orders/${user._id}`);
+        const response = await axios.get(`http://localhost:3000/api/v1/orders/${user._id}`);
         var orders = response.data.data.order.map(item => {
           return { carts: item.cart, subTotal: item.subTotal, createdAt: item.createdAt };
         })
@@ -47,7 +47,7 @@ const UserProfile = () => {
             <div className="col m-4">
               {isOrder ?
                 <h2 className="text-center m-auto">Previous Order</h2> :
-                <h2>You have no orders</h2>}
+                <h2 className="text-center m-auto" >You have no orders</h2>}
             </div>
             <div className="w-100"></div>
             {previousOrder && previousOrder.map(item => <OrderItem item={item} />)}

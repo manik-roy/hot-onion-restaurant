@@ -35,21 +35,15 @@ const Login = (props) => {
       .then(res => {
         if (res) {
           if (res.user) {
-
-            async function getUserProfile(email) {
-              const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
-              auth.setUser({ ...response.data.data.user })
-              setIsLoading(false)
-            }
-            getUserProfile(res.user.email)
             props.history.push('/')
           } else {
             setIsLoading(false)
             setError(res)
           }
-
-
         }
+      })
+      .catch(err => {
+        setIsLoading(false)
       })
   }
 
@@ -69,8 +63,8 @@ const Login = (props) => {
                   <img className="w-50 d-block m-auto" src="https://i.ibb.co/Snjf3fp/logo2.png" alt="" />
                 </div>
                 <form onSubmit={loginUser}>
-                  <InputItem name="email" type="email" onchangeHandler={onchangeHandler} placeholder="Email" value={email} />
-                  <InputItem name="password" type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={password} />
+                  <InputItem name="email" required type="email" onchangeHandler={onchangeHandler} placeholder="Email" value={email} />
+                  <InputItem name="password" required type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={password} />
                   <button type="submit" className="btn login-btn w-100">Log In</button>
                 </form>
                 {error.message && <p className="py-2">{error.message}</p>}

@@ -4,6 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import { UserContext } from '../auth/useAuth';
 import axios from 'axios'
 import Loading from '../utils/Loading';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FoodDetails = (props) => {
   const { addToCart, user, addCatDatabase } = useContext(UserContext)
@@ -12,11 +14,13 @@ const FoodDetails = (props) => {
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
 
+  const notify = () => toast("Item added Cart!");
+
   useEffect(() => {
     async function getFoods() {
       setIsLoading(true);
       try {
-        const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/foods/${pdId.id}`);
+        const response = await axios.get(`http://localhost:3000/api/v1/foods/${pdId.id}`);
         setProduct(response.data.data.food)
         setIsLoading(false)
       } catch (error) {
@@ -40,9 +44,9 @@ const FoodDetails = (props) => {
       props.history.push('/login')
     } else {
       // console.log(id);
+      notify()
       addToCart({ ...item, quantity })
       addCatDatabase(item, quantity, user);
-      props.history.push('/cart')
     }
   }
 
@@ -61,9 +65,15 @@ const FoodDetails = (props) => {
   return (
     <>
       {product ? (
-        <section className="food-details pt-5">
-          <div className="container">
+        <section className="food-details pt-1">
+          <div className="container shadow">
             <div className="row">
+              <div className="col">
+              <div className="item-close py-4 ">
+                  <span className="bg-danger rounded-circle d-block  m-auto" style={{height:50, width:50, lineHeight:'50px'}} onClick={()=> props.history.push('/')} ><i className="fas fa-times" style={{lineHeight:'25px'}}></i></span>
+                </div>
+              </div>
+              <div className="w-100"></div>
               <div className="col-md-6 py-5">
                 <div className="food-details-content">
                   <h3>{product && product.title}</h3>

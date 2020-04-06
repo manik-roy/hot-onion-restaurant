@@ -13,6 +13,13 @@ import UserProfile from './components/Page/UserProfile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Checkout from './components/Cart/Checkout';
 import Foods from './components/Page/Foods';
+import { toast } from 'react-toastify';
+
+toast.configure({
+ autoClose: 1000,
+ draggable: false,
+      
+});
 
 function App() {
   return (

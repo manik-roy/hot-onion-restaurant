@@ -102,3 +102,10 @@ p.see-all {
 p.see-all:hover {
   border-bottom: 1px solid salmon;
 }
+.fa-times {
+  margin: 0 auto;
+    padding-left: 16px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+}

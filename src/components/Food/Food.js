@@ -5,7 +5,7 @@ import { UserContext} from '../auth/useAuth'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios'
 const Food = (props) => {
-    const {cart} = useContext(UserContext)
+    const {cart, setCart, user} = useContext(UserContext)
     const [disabled, setDisabled] = useState(true)
     const [foods, setFoods] = useState([]);
     
@@ -13,7 +13,7 @@ const Food = (props) => {
     useEffect(()=>{
         async function getFoods() {
             try {
-              const response = await axios.get('https://hot-onion.herokuapp.com/api/v1/foods');
+              const response = await axios.get('http://localhost:3000/api/v1/foods');
               console.log(response.data.data.foods);
               setFoods(response.data.data.foods)
             } catch (error) {
@@ -22,6 +22,31 @@ const Food = (props) => {
           }
          getFoods() 
     },[])
+
+
+    // fetch carts
+  // fetch cart data 
+  useEffect(() => {
+      console.log('forn food js');
+      
+    async function getCarts() {
+      if (user) {
+        try {
+          const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+          if( response.data.data.cart.length > 0) {
+            setCart(response.data.data.cart[0].carts)
+          } else {
+            console.log(response.data.data.cart);
+            setCart(response.data.data.cart)
+          }
+        } catch (error) {
+          console.log('carts item from auth ', error);
+        }
+      }
+    }
+    getCarts()
+
+  }, [user])
 
     useEffect(()=> {
                 if(cart.length >0) {

@@ -11,7 +11,7 @@ const Foods = () => {
       async function getFoods() {
         setIsLoading(true)
           try {
-            const response = await axios.get('https://hot-onion.herokuapp.com/api/v1/foods');
+            const response = await axios.get('http://localhost:3000/api/v1/foods');
             console.log(response.data.data.foods);
             setItems(response.data.data.foods)
             setIsLoading(false)

@@ -6,9 +6,11 @@ import CartItem from './CartItem';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import Stripe from '../utils/Stripe';
+import Loading from '../utils/Loading';
 
 const Cart = (props) => {
   const { cart, checkOutOrder, user, setCart } = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false);
 
   const [address, setAddress] = useState('')
   const [homeNo, setHomeNo] = useState('')
@@ -20,13 +22,25 @@ const Cart = (props) => {
   const [subTotal, setSubTotal] = useState(5)
 
   useEffect(() => {
+    
     async function getCarts() {
+      
       if (user) {
+        setIsLoading(true)
         try {
-          const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
-          setCart(response.data.data.cart[0].carts)
+          const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+          setIsLoading(false)
+          if( response.data.data.cart.length > 0) {
+            console.log('form cart componetss single item', response.data.data.cart);
+            setCart(response.data.data.cart[0].carts)
+          } else {
+            console.log('form cart componetss', response.data.data.cart);
+            setCart(response.data.data.cart)
+          }
+          setIsLoading(false)
         } catch (error) {
-          console.log(error)
+          setIsLoading(false)
+          console.log('cart components',error)
         }
       }
     }
@@ -68,22 +82,16 @@ const Cart = (props) => {
   }
 
 
-  if (cart.length === 0) {
-    return (
-      <div className="container pt-5 mt-5 text-center">
-        <h1 className="text-center">You have no item</h1>
-        <Link to="/foods" className="text-danger">See our foods.</Link>
-      </div>
-    )
+  if(isLoading) {
+    return <Loading/>
   }
-
 
   const handleCheckout = async () => {
     props.history.push('/checkout')
     checkOutOrder()
     const cartIds = cart.map(i => i._id);
 
-    const res = await axios.put(`https://hot-onion.herokuapp.com/api/v1/carts/deletes/${user._id}`, cartIds)
+    const res = await axios.put(`http://localhost:3000/api/v1/carts/deletes/${user._id}`, cartIds)
 
     const shippingInfo = {
       address,
@@ -95,13 +103,20 @@ const Cart = (props) => {
       user: user._id,
       subTotal
     }
-    axios.post(`https://hot-onion.herokuapp.com/api/v1/orders`, shippingInfo)
+    axios.post(`http://localhost:3000/api/v1/orders`, shippingInfo)
 
   }
   const hanleSubmit = e => {
     e.preventDefault()
   }
-
+if(cart.length==0) {
+      return (
+    <div className="container pt-5 mt-5 text-center">
+      <h1 className="text-center">You have no item</h1>
+      <Link to="/foods" className="text-danger">See our foods.</Link>
+    </div>
+  )
+} else {
   return (
     <div className="container pt-5 mt-5">
       <div className="row d-flex justify-content-between">
@@ -174,6 +189,7 @@ const Cart = (props) => {
       </div>
     </div>
   );
+}
 };
 
 export default withRouter(Cart);

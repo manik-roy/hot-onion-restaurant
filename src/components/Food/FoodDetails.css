@@ -18,9 +18,7 @@
   color: #E51A4B;
 }
 .food-details {
-  top: 20%;
-  position: absolute;
-  left: 10%;
+ margin-top: 80px;
 }
 p.subtitle.muted {
   font-size: 18px;
