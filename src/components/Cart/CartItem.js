@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import './CartItem.css'
 import { UserContext } from '../auth/useAuth';
 
-const CartItem = ({item, onchangeHandler}) => {
+const CartItem = ({item, onchangeHandler, payMendInfo}) => {
+console.log(payMendInfo);
 
   const {calculateQuantity} = useContext(UserContext)
 
@@ -21,6 +22,7 @@ const CartItem = ({item, onchangeHandler}) => {
       <div className="quantity-aria w-50">
         <div className="input-group">
           <button
+          disabled={payMendInfo}
            onClick={() => calculateQuantity(item, -1)}
             className="btn btn-default"
             ><i className="fas fa-minus"></i></button>
@@ -29,6 +31,7 @@ const CartItem = ({item, onchangeHandler}) => {
             className="text-center"
           > {quantity} </h6>
           <button
+          disabled={payMendInfo}
           onClick={() => calculateQuantity(item, 1)}
             className="btn btn-default"
             ><i className="fas fa-plus"></i></button>

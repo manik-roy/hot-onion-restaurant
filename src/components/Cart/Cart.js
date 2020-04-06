@@ -23,7 +23,7 @@ const Cart = (props) => {
   const [subTotal, setSubTotal] = useState(5)
   const [payInfo, setPayInfo] = useState(null)
   const [isPay, setIsPay] = useState(true)
-
+  const [isPayed, setIsPayed] = useState(false)
   useEffect(() => {
     async function getCarts() {
       
@@ -52,6 +52,7 @@ const Cart = (props) => {
   useEffect(()=>{
     if(payInfo) {
       setIsPay(false)
+      setIsPayed(true)
     }
   },[payInfo])
 
@@ -197,7 +198,7 @@ if(cart.length==0) {
             <h6>Arriving in 20-30 minutes</h6>
             <div className="orders-items-aria">
 
-              {cart.map(item => <CartItem item={item} key={item._id} />)}
+              {cart.map(item => <CartItem item={item} key={item._id} payMendInfo={isPayed}  />)}
 
             </div>
             <div className="order-price-aira">
