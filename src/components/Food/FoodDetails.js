@@ -20,7 +20,7 @@ const FoodDetails = (props) => {
     async function getFoods() {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/foods/${pdId.id}`);
+        const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/foods/${pdId.id}`);
         setProduct(response.data.data.food)
         setIsLoading(false)
       } catch (error) {

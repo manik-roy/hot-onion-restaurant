@@ -34,7 +34,7 @@ const SignUp = (props) => {
 
   // useEffect(()=>{
   //   async function saveNewUser() {
-  //       let newUser = await axios.post('http://localhost:3000/api/v1/users',{email, displayName:name})
+  //       let newUser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users',{email, displayName:name})
   //       // auth.setUser({...newUser.data.data.user})
   //   }
   // },[auth.user])

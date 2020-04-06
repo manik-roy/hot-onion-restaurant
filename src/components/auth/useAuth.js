@@ -19,7 +19,7 @@ const UserProvider = (props) => {
   const login = async(email, password) => {
     try {
       const response = await firebase.auth().signInWithEmailAndPassword(email, password);
-      const userInfo = await axios.get(`http://localhost:3000/api/v1/users/email/${email}`);
+      const userInfo = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
       setUser({ ...userInfo.data.data.user })
       return response;
     } catch (error) {
@@ -32,7 +32,7 @@ const UserProvider = (props) => {
   const registerUserWithEmailPassword = async (email, password, name) => {
     try {
       const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const createdUeser = await axios.post('http://localhost:3000/api/v1/users',{email, displayName:name});
+      const createdUeser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users',{email, displayName:name});
       setUser(createdUeser.data.data.user)
       return response;
     } catch (error) {
@@ -50,7 +50,7 @@ const UserProvider = (props) => {
       if (loginUser) {
 
         async function getUserProfile(email) {
-          const response = await axios.get(`http://localhost:3000/api/v1/users/email/${email}`);
+          const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
           console.log(`form signup componet =   `, response );
           
           setUser({ ...response.data.data.user })
@@ -78,7 +78,7 @@ const UserProvider = (props) => {
     async function getCarts() {
       if (user) {
         try {
-          const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+          const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
           if( response.data.data.cart.length > 0) {
             setCart(response.data.data.cart[0].carts)
           } else {
@@ -126,11 +126,11 @@ const UserProvider = (props) => {
     if (product.quantity === 0) {
       let updateProduct = cart.filter(e => e.productId !== product.productId)
       // delete product
-      axios.delete(`http://localhost:3000/api/v1/carts/${item._id}?user=${user._id}`)
+      axios.delete(`https://hot-onion.herokuapp.com/api/v1/carts/${item._id}?user=${user._id}`)
       setCart(updateProduct)
     } else {
       // update product
-      axios.put(`http://localhost:3000/api/v1/carts/${item._id}`, { quantity: product.quantity, user:user._id })
+      axios.put(`https://hot-onion.herokuapp.com/api/v1/carts/${item._id}`, { quantity: product.quantity, user:user._id })
       let index = cart.indexOf(product.id);
       cart[index] = product
       let updateProduct = [...cart]
@@ -155,7 +155,7 @@ const UserProvider = (props) => {
       }],
       user: user._id
     };
-    axios.post('http://localhost:3000/api/v1/carts', cartData);
+    axios.post('https://hot-onion.herokuapp.com/api/v1/carts', cartData);
   }
 
   // place order and remove cart item

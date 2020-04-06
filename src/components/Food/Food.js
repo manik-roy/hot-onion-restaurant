@@ -13,7 +13,7 @@ const Food = (props) => {
     useEffect(()=>{
         async function getFoods() {
             try {
-              const response = await axios.get('http://localhost:3000/api/v1/foods');
+              const response = await axios.get('https://hot-onion.herokuapp.com/api/v1/foods');
               console.log(response.data.data.foods);
               setFoods(response.data.data.foods)
             } catch (error) {
@@ -32,7 +32,7 @@ const Food = (props) => {
     async function getCarts() {
       if (user) {
         try {
-          const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+          const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
           if( response.data.data.cart.length > 0) {
             setCart(response.data.data.cart[0].carts)
           } else {

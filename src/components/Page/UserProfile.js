@@ -14,7 +14,7 @@ const UserProfile = () => {
     async function getOrder() {
       setIsLoading(true)
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/orders/${user._id}`);
+        const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/orders/${user._id}`);
         var orders = response.data.data.order.map(item => {
           return { carts: item.cart, subTotal: item.subTotal, createdAt: item.createdAt };
         })

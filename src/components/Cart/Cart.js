@@ -30,7 +30,7 @@ const Cart = (props) => {
       if (user) {
         setIsLoading(true)
         try {
-          const response = await axios.get(`http://localhost:3000/api/v1/carts/${user._id}`);
+          const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
           setIsLoading(false)
           if( response.data.data.cart.length > 0) {
             console.log('form cart componetss single item', response.data.data.cart);
@@ -114,7 +114,7 @@ const Cart = (props) => {
      
       const cartIds = cart.map(i => i._id);
     
-      const res = await axios.put(`http://localhost:3000/api/v1/carts/deletes/${user._id}`, cartIds)
+      const res = await axios.put(`https://hot-onion.herokuapp.com/api/v1/carts/deletes/${user._id}`, cartIds)
 
       const shippingInfo = {
         address,
@@ -127,7 +127,7 @@ const Cart = (props) => {
         subTotal,
         payInfo
       }
-      let orderResult = await axios.post(`http://localhost:3000/api/v1/orders`, shippingInfo)
+      let orderResult = await axios.post(`https://hot-onion.herokuapp.com/api/v1/orders`, shippingInfo)
       console.log(orderResult.data.data.order._id);
       setIsLoading(false)
       props.history.push(`/checkout?orderId=${orderResult.data.data.order._id}`)
