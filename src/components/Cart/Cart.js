@@ -11,6 +11,7 @@ import Loading from '../utils/Loading';
 const Cart = (props) => {
   const { cart, checkOutOrder, user, setCart } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(false);
+  const [isShiping, setIsShiping] = useState(false)
 
   const [address, setAddress] = useState('')
   const [homeNo, setHomeNo] = useState('')
@@ -20,9 +21,10 @@ const Cart = (props) => {
   const [deliveryFee] = useState(2)
   const [tax] = useState(5)
   const [subTotal, setSubTotal] = useState(5)
+  const [payInfo, setPayInfo] = useState(null)
+  const [isPay, setIsPay] = useState(true)
 
   useEffect(() => {
-    
     async function getCarts() {
       
       if (user) {
@@ -47,6 +49,16 @@ const Cart = (props) => {
     getCarts()
   }, [])
 
+  useEffect(()=>{
+    if(payInfo) {
+      setIsPay(false)
+    }
+  },[payInfo])
+
+  const handlePayInfo= info => {
+    setPayInfo(info)
+  }
+
   useEffect(() => {
     let totalPrice = cart.reduce((total, item) => total + item.proTotalPrice, 0)
     setSubTotal(totalPrice)
@@ -54,12 +66,22 @@ const Cart = (props) => {
 
   const [disabled, setDisabled] = useState(false)
   useEffect(() => {
-    if (name && homeNo && flatNo && instruction && address) {
+    if (name && homeNo && flatNo && instruction && address && isShiping) {
       setDisabled(false)
     } else {
       setDisabled(true)
     }
-  }, [address, homeNo, flatNo, name, instruction])
+  }, [address, homeNo, flatNo, name, instruction, isShiping])
+
+  // useEffect(()=>{
+  //   if(isShiping) {
+  //     console.log(isShiping);
+      
+  //     setDisabled(true)
+  //   } else {
+  //     setDisabled(false)
+  //   }
+  // },[setIsShiping])
 
   // input field handler
   const onchangeHandler = e => {
@@ -80,35 +102,52 @@ const Cart = (props) => {
       setInstruction(value)
     }
   }
+  useEffect(() =>{
+    setName(user.displayName)
+  },[user])
 
+
+
+  const handleCheckout = async () => {
+    setIsLoading(true)
+    try {
+     
+      const cartIds = cart.map(i => i._id);
+    
+      const res = await axios.put(`http://localhost:3000/api/v1/carts/deletes/${user._id}`, cartIds)
+
+      const shippingInfo = {
+        address,
+        homeNo,
+        flatNo,
+        instruction,
+        name,
+        cart,
+        user: user._id,
+        subTotal,
+        payInfo
+      }
+      let orderResult = await axios.post(`http://localhost:3000/api/v1/orders`, shippingInfo)
+      console.log(orderResult.data.data.order._id);
+      setIsLoading(false)
+      props.history.push(`/checkout?orderId=${orderResult.data.data.order._id}`)
+      checkOutOrder();
+      
+    } catch (error) {
+      setIsLoading(false)
+      alert('Please place order again!')
+    }
+
+  }
+  const hanleSubmit = e => {
+    e.preventDefault()
+    setIsShiping(true)
+  }
 
   if(isLoading) {
     return <Loading/>
   }
 
-  const handleCheckout = async () => {
-    props.history.push('/checkout')
-    checkOutOrder()
-    const cartIds = cart.map(i => i._id);
-
-    const res = await axios.put(`http://localhost:3000/api/v1/carts/deletes/${user._id}`, cartIds)
-
-    const shippingInfo = {
-      address,
-      homeNo,
-      flatNo,
-      instruction,
-      name,
-      cart,
-      user: user._id,
-      subTotal
-    }
-    axios.post(`http://localhost:3000/api/v1/orders`, shippingInfo)
-
-  }
-  const hanleSubmit = e => {
-    e.preventDefault()
-  }
 if(cart.length==0) {
       return (
     <div className="container pt-5 mt-5 text-center">
@@ -136,6 +175,7 @@ if(cart.length==0) {
               type="text" placeholder="Flat, suite or flor"
               onchangeHandler={onchangeHandler} value={flatNo} />
             <InputItem name="name"
+             
               type="text" placeholder="Business Name "
               onchangeHandler={onchangeHandler} value={name} />
             <div className="form-group">
@@ -148,7 +188,7 @@ if(cart.length==0) {
             <button type="submit" className="btn sign-up-btn w-100">Save and Continue</button>
           </form>
           <div className="m-4">
-            <Stripe />
+            <Stripe  disabled={disabled} handlePayInfo={handlePayInfo} />
           </div>
         </div>
         <div className="col-md-5 f-right">
@@ -178,8 +218,8 @@ if(cart.length==0) {
                 </div>
                 <button
                   type="submit"
-                  disabled={disabled}
-                  className={disabled ? 'btn place-order-btn-disable' : 'btn sign-up-btn w-100'}
+                  disabled={isPay}
+                  className={isPay ? 'btn place-order-btn-disable' : 'btn sign-up-btn w-100'}
                   // className="btn sign-up-btn w-100" 
                   onClick={handleCheckout} >Place Order</button>
               </div>

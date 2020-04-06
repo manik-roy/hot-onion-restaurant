@@ -50,7 +50,7 @@ const UserProfile = () => {
                 <h2 className="text-center m-auto" >You have no orders</h2>}
             </div>
             <div className="w-100"></div>
-            {previousOrder && previousOrder.map(item => <OrderItem item={item} />)}
+            {previousOrder && previousOrder.map(item => <OrderItem key={item.createdAt} date={item.createdAt} item={item}  />)}
           </div>
         </div>
       )}

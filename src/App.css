@@ -109,3 +109,8 @@ p.see-all:hover {
     color: #fff;
     cursor: pointer;
 }
+.orderID{
+  text-decoration: underline;
+  color: rgb(0, 68, 194);
+  font-weight: 700;
+}
