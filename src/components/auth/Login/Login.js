@@ -9,8 +9,8 @@ import Loading from '../../utils/Loading';
 const Login = (props) => {
 
   const auth = useContext(UserContext)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('mkmanik9889@gmail.com')
+  const [password, setPassword] = useState('123456')
   const [error, setError] = useState({})
   const [isLoading, setIsLoading] = useState(false);
 
