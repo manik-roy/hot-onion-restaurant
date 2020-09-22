@@ -12,7 +12,7 @@ const { Provider, Consumer } = Context = createContext()
 
 const UserProvider = (props) => {
 
-  const [user, setUser] = useState({email:'asdfasdf'})
+  const [user, setUser] = useState(null)
   const [cart, setCart] = useState([])
 
   // sign in user
@@ -82,7 +82,6 @@ const UserProvider = (props) => {
           if( response.data.data.cart.length > 0) {
             setCart(response.data.data.cart[0].carts)
           } else {
-            console.log(response.data.data.cart);
             setCart(response.data.data.cart)
           }
         } catch (error) {
@@ -92,7 +91,7 @@ const UserProvider = (props) => {
     }
     getCarts()
 
-  }, [])
+  }, [user])
 
 
   // add product to cart
@@ -117,9 +116,7 @@ const UserProvider = (props) => {
   // product quantity add remove
 
   const calculateQuantity = (item, event) => {
-    console.log(item, 'event', event);
-    console.log(item, 'event', event);
-
+  
     let product = cart.find(e => e.productId === item.productId)
     product.quantity = product.quantity + event;
     product.proTotalPrice = product.price * product.quantity;

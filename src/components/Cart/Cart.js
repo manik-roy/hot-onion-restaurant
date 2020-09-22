@@ -36,16 +36,13 @@ const Cart = (props) => {
           const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
           setIsLoading(false)
           if (response.data.data.cart.length > 0) {
-            console.log('form cart componetss single item', response.data.data.cart);
             setCart(response.data.data.cart[0].carts)
           } else {
-            console.log('form cart componetss', response.data.data.cart);
             setCart(response.data.data.cart)
           }
           setIsLoading(false)
         } catch (error) {
           setIsLoading(false)
-          console.log('cart components', error)
         }
       }
     }
@@ -83,7 +80,7 @@ const Cart = (props) => {
     setDeliveryInfo({...deliveryInfo,[name]:value})
   }
   useEffect(() => {
-    setDeliveryInfo({...deliveryInfo, name:user.displayName})
+    setDeliveryInfo(previousState => ({...previousState, name:user.displayName}))
   }, [user])
 
 
@@ -104,7 +101,6 @@ const Cart = (props) => {
         payInfo
       }
       let orderResult = await axios.post(`https://hot-onion.herokuapp.com/api/v1/orders`, shippingInfo)
-      console.log(orderResult.data.data.order._id);
       setIsLoading(false)
       props.history.push(`/checkout?orderId=${orderResult.data.data.order._id}`)
       checkOutOrder();
@@ -139,7 +135,6 @@ const Cart = (props) => {
             <div className="delivery-details">
               <h3>Edit Delivery Details </h3>
             </div>
-
             <form onSubmit={handleSubmit}>
               <InputItem name="address"
                 type="text" placeholder="Deliver to door"

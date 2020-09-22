@@ -3,7 +3,6 @@ import './login.css'
 import InputItem from '../InputItem/InputItem';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
-import axios from 'axios';
 import Loading from '../../utils/Loading';
 
 const Login = (props) => {

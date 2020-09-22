@@ -3,9 +3,7 @@ import InputItem from '../InputItem/InputItem';
 import './SignUp.css'
 import { Link, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
-import axios from 'axios'
 import Loading from '../../utils/Loading';
-import { useEffect } from 'react';
 
 const SignUp = (props) => {
  
@@ -31,13 +29,6 @@ const SignUp = (props) => {
       setConfirmPassword(value)
     }    
   }
-
-  // useEffect(()=>{
-  //   async function saveNewUser() {
-  //       let newUser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users',{email, displayName:name})
-  //       // auth.setUser({...newUser.data.data.user})
-  //   }
-  // },[auth.user])
 
   // form submit handler
 

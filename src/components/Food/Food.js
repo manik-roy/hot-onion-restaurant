@@ -14,7 +14,6 @@ const Food = (props) => {
         async function getFoods() {
             try {
                 const response = await axios.get('https://hot-onion.herokuapp.com/api/v1/foods');
-                console.log(response.data.data.foods);
                 setFoods(response.data.data.foods)
             } catch (error) {
                 console.error(error);
@@ -32,7 +31,6 @@ const Food = (props) => {
                     if (response.data.data.cart.length > 0) {
                         setCart(response.data.data.cart[0].carts)
                     } else {
-                        console.log(response.data.data.cart);
                         setCart(response.data.data.cart)
                     }
                 } catch (error) {

@@ -16,7 +16,6 @@ export default class Stripe extends React.Component {
 
 
   render() {
-    const {handlePayInfo, disabled} = this.props;
     return (
       <StripeCheckout
         {...this.props}
