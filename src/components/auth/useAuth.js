@@ -15,8 +15,10 @@ const UserProvider = (props) => {
   const [user, setUser] = useState(null)
   const [cart, setCart] = useState([])
 
+  // search foods 
+  const [search, setSearch] = useState('')
   // sign in user
-  const login = async(email, password) => {
+  const login = async (email, password) => {
     try {
       const response = await firebase.auth().signInWithEmailAndPassword(email, password);
       const userInfo = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
@@ -32,7 +34,7 @@ const UserProvider = (props) => {
   const registerUserWithEmailPassword = async (email, password, name) => {
     try {
       const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const createdUeser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users',{email, displayName:name});
+      const createdUeser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users', { email, displayName: name });
       setUser(createdUeser.data.data.user)
       return response;
     } catch (error) {
@@ -51,8 +53,8 @@ const UserProvider = (props) => {
 
         async function getUserProfile(email) {
           const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
-          console.log(`form signup componet =   `, response );
-          
+          console.log(`form signup componet =   `, response);
+
           setUser({ ...response.data.data.user })
         }
         getUserProfile(loginUser.email)
@@ -67,7 +69,7 @@ const UserProvider = (props) => {
   const logout = () => {
     firebase.auth().signOut().then(function () {
       setUser(null)
-      setCart(cart.length=0)
+      setCart(cart.length = 0)
     }).catch(function (error) {
       console.log(error);
     })
@@ -79,7 +81,7 @@ const UserProvider = (props) => {
       if (user) {
         try {
           const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
-          if( response.data.data.cart.length > 0) {
+          if (response.data.data.cart.length > 0) {
             setCart(response.data.data.cart[0].carts)
           } else {
             setCart(response.data.data.cart)
@@ -96,7 +98,7 @@ const UserProvider = (props) => {
 
   // add product to cart
   const addToCart = item => {
-    
+
     let isExist = cart.find(e => e._id === item._id)
     if (!isExist) {
       item.proTotalPrice = item.quantity * item.price
@@ -116,7 +118,7 @@ const UserProvider = (props) => {
   // product quantity add remove
 
   const calculateQuantity = (item, event) => {
-  
+
     let product = cart.find(e => e.productId === item.productId)
     product.quantity = product.quantity + event;
     product.proTotalPrice = product.price * product.quantity;
@@ -127,7 +129,7 @@ const UserProvider = (props) => {
       setCart(updateProduct)
     } else {
       // update product
-      axios.put(`https://hot-onion.herokuapp.com/api/v1/carts/${item._id}`, { quantity: product.quantity, user:user._id })
+      axios.put(`https://hot-onion.herokuapp.com/api/v1/carts/${item._id}`, { quantity: product.quantity, user: user._id })
       let index = cart.indexOf(product.id);
       cart[index] = product
       let updateProduct = [...cart]
@@ -174,7 +176,9 @@ const UserProvider = (props) => {
         calculateQuantity,
         setUser,
         addCatDatabase,
-        setCart
+        setCart,
+        search,
+        setSearch
       }
     }>
       {props.children}

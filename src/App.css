@@ -1,22 +1,27 @@
 .btn:hover {
-    color: #da0839;
+  color: #da0839;
 }
+
 .img {
-	max-width: 100%;
-	transition: all 0.3s ease-out 0s;
+  max-width: 100%;
+  transition: all 0.3s ease-out 0s;
 }
+
 ul li {
   list-style: none;
 }
+
 p {
   font-size: 14px;
 }
+
 div img {
-	width: 100%;
+  width: 100%;
 }
+
 input:focus {
-	outline-style: none;
-	border:none;
+  outline-style: none;
+  border: none;
 }
 
 .primary-btn {
@@ -26,11 +31,11 @@ input:focus {
   padding: 7px 25px;
   font-size: 18px;
 }
+
 .primary-btn:hover {
-  
   color: #fff !important;
-  
 }
+
 .single-item {
   transition: .5s;
   cursor: pointer;
@@ -56,61 +61,79 @@ input:focus {
   padding: 6px 50px;
   border-radius: 5px;
 }
+
 .checkout-btn:hover {
   color: #fff;
 }
+
 .active {
   border-bottom: 2px solid #e51a4b;
   color: #e51a4b;
 }
+
 .btn:focus {
   outline: none !important;
   box-shadow: none;
 }
 
-
 /* why choose us aria section start */
+
 .choose-aria-content {
-	justify-content: space-evenly;
-	padding: 0;
-	margin-top: 25px;
+  justify-content: space-evenly;
+  padding: 0;
+  margin-top: 25px;
 }
+
 .choose-aria-icon {
-	width: 30%;
-	margin: 0 10px;
+  width: 30%;
+  margin: 0 10px;
 }
+
 .choose-aria-content div h5.card-title {
-	text-transform: capitalize;
+  text-transform: capitalize;
 }
+
 .choose-aria-content p {
-	font-size: 12px;
+  font-size: 12px;
 }
+
 .disabled {
-  background-color:rgb(128, 128, 128);
+  background-color: rgb(128, 128, 128);
   color: #fff;
   cursor: not-allowed;
 }
+
 /* why choose us aria section end */
-.delivery-details  {
+
+.delivery-details {
   border-bottom: 1px solid gray;
   margin-bottom: 25px;
 }
+
 p.see-all {
   cursor: pointer;
   transition: .3s;
 }
+
 p.see-all:hover {
   border-bottom: 1px solid salmon;
 }
+
 .fa-times {
   margin: 0 auto;
-    padding-left: 16px;
-    font-size: 18px;
-    color: #fff;
-    cursor: pointer;
+  padding-left: 16px;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
 }
-.orderID{
+
+.orderID {
   text-decoration: underline;
   color: rgb(0, 68, 194);
   font-weight: 700;
+}
+
+.search {
+  margin-top: -185px;
+  background: #fff;
 }
