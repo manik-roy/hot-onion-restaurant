@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, useLocation, Link  } from 'react-router-dom';
+import { withRouter, useLocation } from 'react-router-dom';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

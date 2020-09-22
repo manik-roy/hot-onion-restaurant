@@ -12,7 +12,7 @@ const { Provider, Consumer } = Context = createContext()
 
 const UserProvider = (props) => {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({email:'asdfasdf'})
   const [cart, setCart] = useState([])
 
   // sign in user
