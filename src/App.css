@@ -137,3 +137,19 @@ p.see-all:hover {
   margin-top: -185px;
   background: #fff;
 }
+.google-sign-in{
+  height: 50px;
+    margin-top: 99px;
+    text-align: center;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #bfb9ba;
+    cursor: pointer;
+}
+.google-sign-in img {
+  display: inline-block;
+    height: 30%;
+    width: auto;
+}

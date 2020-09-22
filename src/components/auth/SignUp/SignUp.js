@@ -4,9 +4,10 @@ import './SignUp.css'
 import { Link, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
 import Loading from '../../utils/Loading';
+import GoogleSignIn from '../InputItem/GoogleSignIn';
 
 const SignUp = (props) => {
- 
+
   const auth = useContext(UserContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -15,30 +16,30 @@ const SignUp = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   // input field handler
   const onchangeHandler = e => {
-    const {name, value} = e.target;
-    if(name==='name') {
+    const { name, value } = e.target;
+    if (name === 'name') {
       setName(value)
-    }    
-    if(name==='email') {
+    }
+    if (name === 'email') {
       setEmail(value)
-    }    
-    if(name==='password') {
+    }
+    if (name === 'password') {
       setPassword(value)
-    }    
-    if(name==='confirmPassword') {
+    }
+    if (name === 'confirmPassword') {
       setConfirmPassword(value)
-    }    
+    }
   }
 
   // form submit handler
 
-  const registerUser = async  e => {
+  const registerUser = async e => {
     e.preventDefault()
-    if(password === confirmPassword) {
+    if (password === confirmPassword) {
       setIsLoading(true)
       let response = await auth.registerUserWithEmailPassword(email, password, name)
-      if(response) {
-    
+      if (response) {
+
         setIsLoading(false)
         // 
       } else {
@@ -50,35 +51,38 @@ const SignUp = (props) => {
   }
 
 
-  if(isLoading) {
-   return <Loading/>
+  if (isLoading) {
+    return <Loading />
   }
 
-  if(auth.user && !isLoading) {
+  if (auth.user && !isLoading) {
     return Redirect('/')
   } else {
 
-  return (
-    <section className="sign-up" id="sign-up-aria-bg">
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4 col-md-offset-3 m-auto">
-          <div className="sign-up-aria-logo py-5 m-auto">
-            <img className="w-50 d-block m-auto" src="https://i.ibb.co/Snjf3fp/logo2.png" alt=""/>
+    return (
+      <section className="sign-up" id="sign-up-aria-bg">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 col-md-offset-3 m-auto">
+              <div className="sign-up-aria-logo py-5 m-auto">
+                <img className="w-50 d-block m-auto" src="https://i.ibb.co/Snjf3fp/logo2.png" alt="" />
+              </div>
+              <form onSubmit={registerUser}>
+                <InputItem name="name" type="text" required placeholder="Name" onchangeHandler={onchangeHandler} value={name} />
+                <InputItem name="email" type="email" required placeholder="Email" onchangeHandler={onchangeHandler} value={email} />
+                <InputItem name="password" type="password" required placeholder="Password" onchangeHandler={onchangeHandler} value={password} />
+                <InputItem name="confirmPassword" type="password" required placeholder="Confirm Password" onchangeHandler={onchangeHandler} value={confirmPassword} />
+                <button type="submit" className="btn sign-up-btn w-100">Submit</button>
+              </form>
+              <p className="text-center py-2 has-account"><Link to="/login">Already have an account</Link></p>
+              <div className="w-100 mt-5">
+                <GoogleSignIn />
+              </div>
+            </div>
           </div>
-          <form onSubmit={registerUser}>
-            <InputItem name="name" type="text" required placeholder="Name" onchangeHandler={onchangeHandler} value={name} />
-            <InputItem name="email" type="email" required placeholder="Email" onchangeHandler={onchangeHandler} value={email} />
-            <InputItem name="password" type="password" required placeholder="Password" onchangeHandler={onchangeHandler} value={password} />
-            <InputItem name="confirmPassword" type="password" required placeholder="Confirm Password" onchangeHandler={onchangeHandler} value={confirmPassword} />
-            <button type="submit" className="btn sign-up-btn w-100">Submit</button>
-          </form>
-          <p className="text-center py-2 has-account"><Link to="/login">Already have an account</Link></p>
         </div>
-      </div>
-    </div>
-  </section>
-  );
+      </section>
+    );
   }
 };
 

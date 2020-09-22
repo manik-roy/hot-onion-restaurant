@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import firebaseConfig from "../firebase.config";
 import axios from 'axios';
+import { useHistory } from "react-router";
 firebase.initializeApp(firebaseConfig)
 
 let Context = null
@@ -34,8 +35,8 @@ const UserProvider = (props) => {
   const registerUserWithEmailPassword = async (email, password, name) => {
     try {
       const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const createdUeser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users', { email, displayName: name });
-      setUser(createdUeser.data.data.user)
+      const createUser = await axios.post('https://hot-onion.herokuapp.com/api/v1/users', { email, displayName: name });
+      setUser(createUser.data.data.user)
       return response;
     } catch (error) {
       alert(error.message)
@@ -162,6 +163,22 @@ const UserProvider = (props) => {
     setCart([])
   }
 
+  // google sign in
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({
+    'login_hint': 'your@gmail.com'
+  });
+  const history = useHistory ();
+  const signInWithGoogle = async (route) => {
+    try {
+      const response = await firebase.auth().signInWithPopup(provider);
+      setUser({ email: response.user.email, displayName: response.user.displayName })
+      history.replace(route)
+      return response;
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   return (
     <Provider value={
@@ -178,7 +195,8 @@ const UserProvider = (props) => {
         addCatDatabase,
         setCart,
         search,
-        setSearch
+        setSearch,
+        signInWithGoogle
       }
     }>
       {props.children}

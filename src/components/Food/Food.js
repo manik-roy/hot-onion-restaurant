@@ -5,7 +5,7 @@ import { UserContext } from '../auth/useAuth'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios'
 const Food = (props) => {
-    const { cart, setCart, user, search, setSearch } = useContext(UserContext)
+    const { cart, setCart, user, search } = useContext(UserContext)
     const [disabled, setDisabled] = useState(true)
     const [foods, setFoods] = useState([]);
     // item select category

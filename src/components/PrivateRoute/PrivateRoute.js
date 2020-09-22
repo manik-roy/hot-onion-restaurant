@@ -5,7 +5,6 @@ import { UserContext } from '../auth/useAuth';
 
 const PrivateRoute = ({ children, ...rest }) => {
   const auth = useContext(UserContext)
-
   return (
     <Route
       {...rest}

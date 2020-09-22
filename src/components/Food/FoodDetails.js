@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './FoodDetails.css'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../auth/useAuth';
 import axios from 'axios'
 import Loading from '../utils/Loading';
@@ -39,9 +39,13 @@ const FoodDetails = (props) => {
     }
   }
 
+  const location = useLocation()
   const cartHandler = item => {
     if (!user) {
-      props.history.push('/login')
+      props.history.push({
+        pathname: "/login",
+        state: { from: location.pathname }
+      })
     } else {
       // console.log(id);
       notify()
@@ -69,8 +73,8 @@ const FoodDetails = (props) => {
           <div className="container shadow">
             <div className="row">
               <div className="col">
-              <div className="item-close py-4 ">
-                  <span className="bg-danger rounded-circle d-block  m-auto" style={{height:50, width:50, lineHeight:'50px'}} onClick={()=> props.history.push('/')} ><i className="fas fa-times" style={{lineHeight:'25px'}}></i></span>
+                <div className="item-close py-4 ">
+                  <span className="bg-danger rounded-circle d-block  m-auto" style={{ height: 50, width: 50, lineHeight: '50px' }} onClick={() => props.history.push('/')} ><i className="fas fa-times" style={{ lineHeight: '25px' }}></i></span>
                 </div>
               </div>
               <div className="w-100"></div>

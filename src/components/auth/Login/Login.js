@@ -4,6 +4,7 @@ import InputItem from '../InputItem/InputItem';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { UserContext } from '../useAuth';
 import Loading from '../../utils/Loading';
+import GoogleSignIn from '../InputItem/GoogleSignIn';
 
 const Login = (props) => {
 
@@ -68,6 +69,9 @@ const Login = (props) => {
                 </form>
                 {error.message && <p className="py-2">{error.message}</p>}
                 <p className="text-center py-2 no-account">Don't have an account?<Link to="/signup"> Sign up</Link></p>
+                <div className="w-100 mt-5">
+                  <GoogleSignIn />
+                </div>
               </div>
             </div>
           </div>
