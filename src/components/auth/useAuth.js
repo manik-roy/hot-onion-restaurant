@@ -51,11 +51,8 @@ const UserProvider = (props) => {
     firebase.auth().onAuthStateChanged(function (loginUser) {
 
       if (loginUser) {
-
         async function getUserProfile(email) {
           const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/users/email/${email}`);
-          console.log(`form signup componet =   `, response);
-
           setUser({ ...response.data.data.user })
         }
         getUserProfile(loginUser.email)
@@ -70,7 +67,7 @@ const UserProvider = (props) => {
   const logout = () => {
     firebase.auth().signOut().then(function () {
       setUser(null)
-      setCart(cart.length = 0)
+      setCart([])
     }).catch(function (error) {
       console.log(error);
     })

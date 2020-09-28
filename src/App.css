@@ -21,7 +21,6 @@ div img {
 
 input:focus {
   outline-style: none;
-  border: none;
 }
 
 .primary-btn {

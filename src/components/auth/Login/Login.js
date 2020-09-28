@@ -1,29 +1,30 @@
 import React, { useState, useContext } from 'react';
 import './login.css'
 import InputItem from '../InputItem/InputItem';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../useAuth';
 import Loading from '../../utils/Loading';
 import GoogleSignIn from '../InputItem/GoogleSignIn';
 
 const Login = (props) => {
 
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
+  
   const auth = useContext(UserContext)
-  const [email, setEmail] = useState('mkmanik9889@gmail.com')
-  const [password, setPassword] = useState('123456')
+  const [user, setUser] = useState({
+    email: 'mkmanik9889@gmail.com',
+    password: '123456'
+  })
+
   const [error, setError] = useState({})
   const [isLoading, setIsLoading] = useState(false);
 
   // input field handler
   const onchangeHandler = e => {
     const { name, value } = e.target;
-
-    if (name === 'email') {
-      setEmail(value)
-    }
-    if (name === 'password') {
-      setPassword(value)
-    }
+    setUser({ ...user, [name]: value })
 
   }
 
@@ -31,19 +32,14 @@ const Login = (props) => {
   const loginUser = e => {
     setIsLoading(true)
     e.preventDefault()
-    auth.login(email, password)
+    auth.login(user.email, user.password)
       .then(res => {
-        if (res) {
-          if (res.user) {
-            props.history.push('/')
-          } else {
-            setIsLoading(false)
-            setError(res)
-          }
+        if (res.user) {
+          history.replace(from)
+        } else {
+          setIsLoading(false)
+          setError(res)
         }
-      })
-      .catch(err => {
-        setIsLoading(false)
       })
   }
 
@@ -63,12 +59,12 @@ const Login = (props) => {
                   <img className="w-50 d-block m-auto" src="https://i.ibb.co/Snjf3fp/logo2.png" alt="" />
                 </div>
                 <form onSubmit={loginUser}>
-                  <InputItem name="email" required type="email" onchangeHandler={onchangeHandler} placeholder="Email" value={email} />
-                  <InputItem name="password" required type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={password} />
+                  <InputItem name="email" autoFocus required type="email" onchangeHandler={onchangeHandler} placeholder="Email" value={user.email} />
+                  <InputItem name="password" required type="password" onchangeHandler={onchangeHandler} placeholder="Password" value={user.password} />
                   <button type="submit" className="btn login-btn w-100">Log In</button>
                 </form>
                 {error.message && <p className="py-2">{error.message}</p>}
-                <p className="text-center py-2 no-account">Don't have an account?<Link to="/signup"> Sign up</Link></p>
+                <p className="text-center py-2 no-account">Don't have an account?<Link to={{ pathname: '/signup', state: { from: from.pathname } }}> Sign up</Link></p>
                 <div className="w-100 mt-5">
                   <GoogleSignIn />
                 </div>

@@ -5,7 +5,7 @@ import { UserContext } from '../auth/useAuth'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios'
 const Food = (props) => {
-    const { cart, setCart, user, search } = useContext(UserContext)
+    const { cart, search } = useContext(UserContext)
     const [disabled, setDisabled] = useState(true)
     const [foods, setFoods] = useState([]);
     // item select category
@@ -25,26 +25,6 @@ const Food = (props) => {
         getFoods()
     }, [])
 
-    // fetch cart data 
-    useEffect(() => {
-        async function getCarts() {
-            if (user) {
-                try {
-                    const response = await axios.get(`https://hot-onion.herokuapp.com/api/v1/carts/${user._id}`);
-                    if (response.data.data.cart.length > 0) {
-                        setCart(response.data.data.cart[0].carts)
-                    } else {
-                        setCart(response.data.data.cart)
-                    }
-                } catch (error) {
-                    console.log('carts item from auth ', error);
-                }
-            }
-        }
-        getCarts()
-
-    }, [setCart, user])
-
     useEffect(() => {
         if (cart.length > 0) {
             setDisabled(false)
@@ -56,6 +36,9 @@ const Food = (props) => {
         if (search.trim().length > 0) {
             const filterFoods = foods.filter(food => food.title.toLowerCase().includes(search))
             setItems([...filterFoods])
+        } else  {
+            const data = foods.filter(item => item.catagories === selectedItem)
+            setItems(data)
         }
     }, [foods, search]);
 
