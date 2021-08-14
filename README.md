@@ -1,4 +1,4 @@
-# Red Onion Foods (restaurants website)
+# Red Onion (restaurants website)
 ![](https://i.ibb.co/p213QhN/image.png)
 # [LIVE](https://e-restaurant-27e3c.firebaseapp.com/)
 
